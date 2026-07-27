@@ -1,0 +1,9 @@
+export { default as Hero } from "./Hero";
+export { default as About } from "./About";
+export { default as Philosophy } from "./Philosophy";
+export { default as FiveDimensions } from "./FiveDimensions";
+export { default as ProjectDetail } from "./ProjectDetail";
+export { default as VideoShowcase } from "./VideoShowcase";
+export { default as CreativeAbility } from "./CreativeAbility";
+export { default as Timeline } from "./Timeline";
+export { default as Contact } from "./Contact";
