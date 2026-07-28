@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 // ============================================================
 // 内容上下文 — React Context 状态分发层
@@ -13,6 +13,7 @@ import {
   resetContent,
   getDefaultContent,
   loadMergedContent,
+  loadPreviewContent,
 } from "@/lib/content-store";
 import type { SiteContent } from "@/lib/content-store";
 
@@ -31,7 +32,9 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
 
   // 客户端挂载后：先拉远程 JSON，再合并 localStorage
   React.useEffect(() => {
-    loadMergedContent().then(merged => {
+    const isPreview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("preview");
+    const loader = isPreview ? loadPreviewContent() : loadMergedContent();
+    loader.then(merged => {
       setContent(merged);
       setIsLoaded(true);
     });

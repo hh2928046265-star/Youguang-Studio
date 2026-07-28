@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import { useState, useRef, useCallback } from "react";
@@ -954,7 +954,10 @@ function PublishPanel({ onClose }: { onClose: () => void }) {
     setStatusMsg("正在发布...");
 
     try {
-      const jsonStr = JSON.stringify(content, null, 2);
+      // 直接从 localStorage 读取最新内容
+      const stored = localStorage.getItem("youguang_content");
+      const publishContent = stored ? { ...JSON.parse(stored) } : content;
+      const jsonStr = JSON.stringify(publishContent, null, 2);
       const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
 
       let sha = "";
@@ -1037,6 +1040,15 @@ function PublishPanel({ onClose }: { onClose: () => void }) {
             {statusMsg}
           </div>
         )}
+
+        <a
+          href="/Youguang-Studio/?preview"
+          target="_blank"
+          rel="noreferrer"
+          className="w-full py-3 border border-gold/40 text-gold text-sm tracking-[0.2em] rounded-xl hover:bg-gold/10 transition-all duration-300 block text-center mb-3"
+        >
+          预览即将发布的内容 →
+        </a>
 
         <button
           onClick={handlePublish}

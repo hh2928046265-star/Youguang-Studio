@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // 内容存储层 — 三层加载：远程 JSON → localStorage 覆盖 → 默认值
 // ============================================================
 
@@ -128,6 +128,20 @@ export async function loadMergedContent(): Promise<SiteContent> {
     }
   } catch {}
   return remote;
+}
+
+
+// ---- 预览加载：纯 localStorage（跳过远程），用于发布前预览 ----
+export async function loadPreviewContent(): Promise<SiteContent> {
+  if (typeof window === "undefined") return getDefaultContent();
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const local = JSON.parse(raw) as Partial<SiteContent>;
+      return { ...getDefaultContent(), ...local };
+    }
+  } catch {}
+  return getDefaultContent();
 }
 
 // ---- 写入 ----
