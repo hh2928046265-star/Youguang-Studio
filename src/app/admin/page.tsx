@@ -933,66 +933,26 @@ function SaveButton({ onClick }: { onClick: () => void }) {
 // 发布到网站面板
 // ============================================================
 // 将 IndexedDB 文件上传到 GitHub 并替换为路径
-async function embedFilesInContent(obj: any, token: string): Promise<void> {
+// 将 IndexedDB 文件 ID 替换为压缩后的 base64 data URL
+async function embedFilesInContent(obj: any, _token: string): Promise<void> {
   const fileIdPattern = /^[a-f0-9-]{36}____/;
-  const uploaded = new Map<string, string>(); // id -> path 缓存
+  const converted = new Map<string, string>();
 
-  async function uploadToGitHub(id: string, file: File): Promise<string> {
-    const safeName = id.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = "out/uploads/" + safeName;
-    
-    // 转 base64
-    const dataUrl = await new Promise<string>((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = () => resolve("");
-      reader.readAsDataURL(file);
-    });
-    if (!dataUrl) return id;
-    
-    const base64Content = dataUrl.split(",")[1];
-    
-    // 检查文件是否已存在
-    let sha = "";
+  async function toBase64(val: string): Promise<string> {
+    if (converted.has(val)) return converted.get(val)!;
     try {
-      const getRes = await fetch(
-        "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/" + path,
-        { headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json" } }
-      );
-      if (getRes.ok) {
-        const data = await getRes.json();
-        sha = data.sha;
+      const file = await getFile(val);
+      if (file) {
+        const dataUrl = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = () => resolve(val);
+          reader.readAsDataURL(file);
+        });
+        converted.set(val, dataUrl);
+        return dataUrl;
       }
     } catch {}
-    
-    // 上传文件
-    const body: any = { message: "上传媒体文件", content: base64Content, branch: "main" };
-    if (sha) body.sha = sha;
-    
-    await fetch(
-      "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/" + path,
-      {
-        method: "PUT",
-        headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json", "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      }
-    );
-    
-    return "/Youguang-Studio/uploads/" + safeName;
-  }
-
-  async function processValue(val: any): Promise<any> {
-    if (typeof val === "string" && fileIdPattern.test(val) && !val.startsWith("data:") && !val.startsWith("/")) {
-      if (uploaded.has(val)) return uploaded.get(val);
-      try {
-        const file = await getFile(val);
-        if (file) {
-          const path = await uploadToGitHub(val, file);
-          uploaded.set(val, path);
-          return path;
-        }
-      } catch {}
-    }
     return val;
   }
 
@@ -1000,16 +960,16 @@ async function embedFilesInContent(obj: any, token: string): Promise<void> {
     if (!o || typeof o !== "object") return;
     if (Array.isArray(o)) {
       for (let i = 0; i < o.length; i++) {
-        if (typeof o[i] === "string") {
-          o[i] = await processValue(o[i]);
+        if (typeof o[i] === "string" && fileIdPattern.test(o[i]) && !o[i].startsWith("data:") && !o[i].startsWith("/")) {
+          o[i] = await toBase64(o[i]);
         } else if (typeof o[i] === "object") {
           await walk(o[i]);
         }
       }
     } else {
       for (const key of Object.keys(o)) {
-        if (typeof o[key] === "string") {
-          o[key] = await processValue(o[key]);
+        if (typeof o[key] === "string" && fileIdPattern.test(o[key]) && !o[key].startsWith("data:") && !o[key].startsWith("/")) {
+          o[key] = await toBase64(o[key]);
         } else if (typeof o[key] === "object") {
           await walk(o[key]);
         }
@@ -1019,7 +979,6 @@ async function embedFilesInContent(obj: any, token: string): Promise<void> {
 
   await walk(obj);
 }
-
 function PublishPanel({ onClose }: { onClose: () => void }) {
   const { content } = useContent();
   const [token, setToken] = React.useState("");

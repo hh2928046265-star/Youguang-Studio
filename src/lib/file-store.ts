@@ -22,8 +22,38 @@ function openDB(): Promise<IDBDatabase> {
 }
 
 // 存储文件，返回唯一 id
+// 图片压缩：限制最大尺寸 1200px，JPEG 质量 0.75，控制在 ~300KB 以内
+async function compressImage(file: File): Promise<File> {
+  const imgTypes = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+  if (!imgTypes.includes(file.type)) return file;
+  
+  try {
+    const bitmap = await createImageBitmap(file);
+    const MAX = 1200;
+    let w = bitmap.width, h = bitmap.height;
+    if (w > MAX || h > MAX) {
+      const ratio = Math.min(MAX / w, MAX / h);
+      w = Math.round(w * ratio);
+      h = Math.round(h * ratio);
+    }
+    
+    const canvas = new OffscreenCanvas(w, h);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) { bitmap.close(); return file; }
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    bitmap.close();
+    
+    const blob = await canvas.convertToBlob({ type: "image/jpeg", quality: 0.75 });
+    const name = file.name.replace(/\.[^.]+$/, ".jpg");
+    return new File([blob], name, { type: "image/jpeg" });
+  } catch {
+    return file;
+  }
+}
+
 export async function storeFile(file: File): Promise<string> {
-  const id = crypto.randomUUID() + "_" + file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const compressed = await compressImage(file);
+  const id = crypto.randomUUID() + "_" + compressed.name.replace(/[^a-zA-Z0-9._-]/g, "_");
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, "readwrite");
@@ -33,7 +63,7 @@ export async function storeFile(file: File): Promise<string> {
       name: file.name,
       type: file.type,
       size: file.size,
-      data: file, // 直接存 File 对象
+      data: compressed, // 直接存 File 对象
       createdAt: Date.now(),
     };
     const request = store.put(entry);
