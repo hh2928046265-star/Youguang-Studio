@@ -1,9 +1,8 @@
-"use client";
+﻿"use client";
 
 // ============================================================
 // 内容上下文 — React Context 状态分发层
-// 参考: nextjs-artist-portfolio 的 useDatabase hook 模式
-//       Aiyu portfolio 的 CMS Context 模式
+// 三层加载：远程 JSON → localStorage 覆盖 → 默认值
 // ============================================================
 
 import * as React from "react";
@@ -13,6 +12,7 @@ import {
   saveContent,
   resetContent,
   getDefaultContent,
+  loadMergedContent,
 } from "@/lib/content-store";
 import type { SiteContent } from "@/lib/content-store";
 
@@ -29,11 +29,12 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [content, setContent] = useState<SiteContent>(getDefaultContent);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // 客户端挂载后从 localStorage 加载
+  // 客户端挂载后：先拉远程 JSON，再合并 localStorage
   React.useEffect(() => {
-    const loaded = loadContent();
-    setContent(loaded);
-    setIsLoaded(true);
+    loadMergedContent().then(merged => {
+      setContent(merged);
+      setIsLoaded(true);
+    });
   }, []);
 
   const updateContent = useCallback((patch: Partial<SiteContent>) => {

@@ -914,3 +914,124 @@ function SaveButton({ onClick }: { onClick: () => void }) {
     </motion.button>
   );
 }
+
+// ============================================================
+// 发布到网站面板
+// ============================================================
+function PublishPanel({ onClose }: { onClose: () => void }) {
+  const { content } = useContent();
+  const [token, setToken] = React.useState("");
+  const [status, setStatus] = React.useState("idle");
+  const [statusMsg, setStatusMsg] = React.useState("");
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem("youguang_gh_token");
+    if (saved) setToken(saved);
+  }, []);
+
+  const handlePublish = async () => {
+    if (!token.trim()) {
+      setStatus("error");
+      setStatusMsg("请先输入 GitHub Token");
+      return;
+    }
+    localStorage.setItem("youguang_gh_token", token.trim());
+    setStatus("publishing");
+    setStatusMsg("正在发布...");
+
+    try {
+      const jsonStr = JSON.stringify(content, null, 2);
+      const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
+
+      let sha = "";
+      try {
+        const getRes = await fetch(
+          "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/public/content.json",
+          { headers: { Authorization: "Bearer " + token.trim(), Accept: "application/vnd.github+json" } }
+        );
+        if (getRes.ok) {
+          const data = await getRes.json();
+          sha = data.sha;
+        }
+      } catch {}
+
+      const body: { message: string; content: string; branch: string; sha?: string } = { message: "发布内容更新", content: base64, branch: "main" };
+      if (sha) body["sha"] = sha;
+
+      const putRes = await fetch(
+        "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/public/content.json",
+        {
+          method: "PUT",
+          headers: { Authorization: "Bearer " + token.trim(), Accept: "application/vnd.github+json", "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+
+      if (putRes.ok) {
+        setStatus("success");
+        setStatusMsg("发布成功！网站将在约 2 分钟后更新。");
+      } else {
+        const err = await putRes.json();
+        setStatus("error");
+        setStatusMsg("发布失败：" + (err.message || "未知错误"));
+      }
+    } catch (e: unknown) {
+      setStatus("error");
+      setStatusMsg("发布失败：" + ((e as Error).message || "网络错误"));
+    }
+  };
+
+  return (
+    <EditorShell title="发布到网站" onClose={onClose}>
+      <div className="space-y-8">
+        <div className="p-6 bg-white/40 rounded-2xl border border-sand/50">
+          <p className="text-sm text-stone leading-relaxed mb-4">
+            将当前所有内容发布到线上网站。
+            发布后，<strong>所有设备</strong>都会看到最新内容。
+          </p>
+          <p className="text-xs text-stone-light">
+            发布流程：保存内容到 GitHub → 自动构建部署 → 约 2 分钟后生效
+          </p>
+        </div>
+
+        <div>
+          <label className="block text-xs text-stone-light tracking-[0.2em] uppercase mb-3 font-light">
+            GitHub Personal Access Token
+          </label>
+          <input
+            type="password"
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+            placeholder="输入 GitHub Token（需 repo 权限）"
+            className="w-full px-5 py-3 bg-white/50 border border-sand rounded-xl text-sm text-ink font-light focus:outline-none focus:border-gold/50 transition-colors"
+          />
+          <p className="mt-2 text-xs text-stone-light/70">
+            如何获取？{" "}
+            <a href="https://github.com/settings/tokens" target="_blank" className="text-nature underline" rel="noreferrer">
+              打开 GitHub Token 页面
+            </a>
+            ，Generate new token (classic)，勾选 <strong>repo</strong>，生成后粘贴到这里。
+          </p>
+        </div>
+
+        {status !== "idle" && (
+          <div className={"p-4 rounded-xl text-sm " + (
+            status === "publishing" ? "bg-gold/10 text-gold" :
+            status === "success" ? "bg-nature/10 text-nature" :
+            "bg-red-500/10 text-red-500"
+          )}>
+            {statusMsg}
+          </div>
+        )}
+
+        <button
+          onClick={handlePublish}
+          disabled={status === "publishing"}
+          className="w-full py-4 bg-gold text-ivory text-sm tracking-[0.2em] rounded-xl hover:bg-gold/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {status === "publishing" ? "发布中..." : "发布到网站"}
+        </button>
+      </div>
+    </EditorShell>
+  );
+}

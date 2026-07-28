@@ -1,7 +1,5 @@
-// ============================================================
-// 内容存储层 — 单例 localStorage 读写
-// 参考: nextjs-artist-portfolio 的 useDatabase hook 模式
-//       nextjs-cinematic-portfolio 的 content.js 模式
+﻿// ============================================================
+// 内容存储层 — 三层加载：远程 JSON → localStorage 覆盖 → 默认值
 // ============================================================
 
 import {
@@ -92,6 +90,46 @@ export function loadContent(): SiteContent {
   }
 }
 
+// ---- 远程加载：从 /content.json 读取已发布内容 ----
+let publishedCache: SiteContent | null = null;
+let publishedPromise: Promise<SiteContent> | null = null;
+
+export async function loadRemoteContent(basePath: string = ""): Promise<SiteContent> {
+  if (typeof window === "undefined") return getDefaultContent();
+  if (publishedCache) return publishedCache;
+  if (publishedPromise) return publishedPromise;
+
+  publishedPromise = fetch(basePath + "/content.json")
+    .then(res => {
+      if (!res.ok) throw new Error("no remote content");
+      return res.json();
+    })
+    .then((remote: Partial<SiteContent>) => {
+      publishedCache = { ...getDefaultContent(), ...remote };
+      return publishedCache;
+    })
+    .catch(() => {
+      publishedCache = getDefaultContent();
+      return publishedCache;
+    });
+
+  return publishedPromise;
+}
+
+// ---- 合并加载：远程内容 + localStorage 覆盖 ----
+export async function loadMergedContent(): Promise<SiteContent> {
+  const remote = await loadRemoteContent("/Youguang-Studio");
+  if (typeof window === "undefined") return remote;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const local = JSON.parse(raw) as Partial<SiteContent>;
+      return { ...remote, ...local };
+    }
+  } catch {}
+  return remote;
+}
+
 // ---- 写入 ----
 export function saveContent(content: Partial<SiteContent>): SiteContent {
   const current = loadContent();
@@ -100,6 +138,12 @@ export function saveContent(content: Partial<SiteContent>): SiteContent {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
   }
   return merged;
+}
+
+// ---- 导出当前内容为 JSON 字符串（用于发布）----
+export function exportContent(): string {
+  const content = loadContent();
+  return JSON.stringify(content, null, 2);
 }
 
 // ---- 重置 ----

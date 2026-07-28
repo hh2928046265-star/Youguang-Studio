@@ -1,0 +1,215 @@
+{
+  "siteConfig": {
+    "name": "游光 Studio",
+    "fullName": "Zhou You Visual Creation",
+    "creator": "周游",
+    "tagline": "AI时代数字视觉创作者",
+    "navItems": [
+      {
+        "label": "About",
+        "href": "#about"
+      },
+      {
+        "label": "Works",
+        "href": "#works"
+      },
+      {
+        "label": "Vision",
+        "href": "#vision"
+      },
+      {
+        "label": "Contact",
+        "href": "#contact"
+      }
+    ]
+  },
+  "aboutContent": {
+    "title": "关于周游",
+    "subtitle": "Zhou You",
+    "paragraphs": [
+      "游走於光影之间，用镜头捕捉时间的切片。将东方自然美学与现代视觉语言融合，在AI与人类创造力交汇之处，探索视觉表达的新可能。",
+      "从传统摄影到AI辅助创作，从静态影像到动态叙事，始终相信最好的作品永远在前方。这是一个持续进化的创作者，而非一个固定的标签。",
+      "2026年，创立游光 Studio，致力于打造属于AI时代的数字视觉创作方法论。"
+    ],
+    "image": "/about-portrait.jpg"
+  },
+  "philosophyItems": [
+    {
+      "number": "01",
+      "title": "Observe",
+      "subtitle": "观察世界"
+    },
+    {
+      "number": "02",
+      "title": "Create",
+      "subtitle": "创造视觉"
+    },
+    {
+      "number": "03",
+      "title": "Share",
+      "subtitle": "传播价值"
+    }
+  ],
+  "dimensionNodes": [
+    {
+      "id": "visionloop",
+      "name": "VisionLoop",
+      "subtitle": "动态视觉",
+      "x": 50,
+      "y": 15,
+      "color": "#788B72",
+      "href": "#project-visionloop"
+    },
+    {
+      "id": "photoloop",
+      "name": "PhotoLoop",
+      "subtitle": "静态视觉",
+      "x": 82,
+      "y": 38,
+      "color": "#B99A5B",
+      "href": "#project-photoloop"
+    },
+    {
+      "id": "lumind",
+      "name": "Lumind",
+      "subtitle": "内容表达",
+      "x": 75,
+      "y": 72,
+      "color": "#66635D",
+      "href": "#project-lumind"
+    },
+    {
+      "id": "miguang",
+      "name": "觅光摄影助手",
+      "subtitle": "知识成长",
+      "x": 25,
+      "y": 72,
+      "color": "#8C8982",
+      "href": "#project-miguang"
+    },
+    {
+      "id": "shanhai",
+      "name": "山海风物志",
+      "subtitle": "视觉传播",
+      "x": 18,
+      "y": 38,
+      "color": "#9AAD94",
+      "href": "#project-shanhai"
+    }
+  ],
+  "projects": [
+    {
+      "id": "visionloop",
+      "number": "01",
+      "name": "VisionLoop",
+      "subtitle": "Motion is the new still",
+      "description": "AI驱动的动态视觉实验场，将静态摄影延伸至时间维度，探索运动影像的无限可能。",
+      "image": "/projects/visionloop.jpg",
+      "category": "动态视觉"
+    },
+    {
+      "id": "photoloop",
+      "number": "02",
+      "name": "PhotoLoop",
+      "subtitle": "Every frame tells a story",
+      "description": "AI辅助的静态视觉创作工具，让摄影回归观察的本质，技术服务於表达。",
+      "image": "/projects/photoloop.jpg",
+      "category": "静态视觉"
+    },
+    {
+      "id": "lumind",
+      "number": "03",
+      "name": "Lumind",
+      "subtitle": "Light meets mind",
+      "description": "内容表达与知识管理系统，连接视觉创作的内在逻辑与外部呈现。",
+      "image": "/projects/lumind.jpg",
+      "category": "内容表达"
+    },
+    {
+      "id": "miguang",
+      "number": "04",
+      "name": "觅光摄影助手",
+      "subtitle": "Chasing light, together",
+      "description": "AI摄影知识助手，帮助创作者系统地成长，从技术到审美的完整学习路径。",
+      "image": "/projects/miguang.jpg",
+      "category": "知识成长"
+    },
+    {
+      "id": "shanhai",
+      "number": "05",
+      "name": "山海风物志",
+      "subtitle": "Between mountains and seas",
+      "description": "文旅视觉传播项目，用数字视觉语言讲述中国山川的故事。",
+      "image": "/projects/shanhai.jpg",
+      "category": "视觉传播"
+    }
+  ],
+  "timelineItems": [
+    {
+      "year": "Explore",
+      "title": "深入AI视觉创作",
+      "description": "系统性地将AI融入视觉创作全流程，建立人机协作方法论",
+      "keyword": ""
+    },
+    {
+      "year": "Grow",
+      "title": "开发觅光摄影助手",
+      "description": "AI摄影知识与学习系统诞生，创作者成长路径体系化",
+      "keyword": ""
+    },
+    {
+      "year": "Culture",
+      "title": "创建山海风物志",
+      "description": "文旅视觉传播项目启动，用数字影像讲述山川故事",
+      "keyword": ""
+    },
+    {
+      "year": "Still",
+      "title": "构建 PhotoLoop",
+      "description": "AI辅助静态视觉创作工具上线，让技术服务於观察",
+      "keyword": ""
+    },
+    {
+      "year": "Motion",
+      "title": "打造 VisionLoop",
+      "description": "探索AI时代动态视觉创作的新范式，重新定义运动影像",
+      "keyword": ""
+    },
+    {
+      "year": "Create",
+      "title": "建立游光 Studio",
+      "description": "个人品牌与创作方法论正式确立，开启AI视觉创作者之路",
+      "keyword": ""
+    }
+  ],
+  "creativeAbilities": [
+    "Photography",
+    "Cinematography",
+    "AI Creation",
+    "Product Design",
+    "Storytelling"
+  ],
+  "contactInfo": {
+    "title": "Let's Create Together",
+    "collaborations": [
+      {
+        "label": "商业摄影",
+        "description": "品牌视觉、产品摄影、空间影像"
+      },
+      {
+        "label": "视觉内容制作",
+        "description": "短片、动态视觉、创意策划"
+      },
+      {
+        "label": "AI创意项目",
+        "description": "AI辅助创作、工具开发、工作流设计"
+      },
+      {
+        "label": "文旅传播",
+        "description": "地域文化视觉化、旅游内容创作"
+      }
+    ]
+  },
+  "heroBg": "/hero-bg.jpg",
+  "showreelUrl": ""
+}
