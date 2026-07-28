@@ -938,8 +938,7 @@ async function embedFilesInContent(obj: any, token: string): Promise<void> {
   const uploaded = new Map<string, string>(); // id -> path 缓存
 
   async function uploadToGitHub(id: string, file: File): Promise<string> {
-    const ext = file.name.split(".").pop() || "jpg";
-    const safeName = id.replace(/[^a-zA-Z0-9._-]/g, "_") + "." + ext;
+    const safeName = id.replace(/[^a-zA-Z0-9._-]/g, "_");
     const path = "out/uploads/" + safeName;
     
     // 转 base64

@@ -39,7 +39,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[#1a1815]" />
 
         {/* Custom image overlay if exists */}
-        {heroBg && heroBg !== "/hero-bg.jpg" && (
+        {heroBg && (
           <div
             className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay"
             style={{ backgroundImage: `url('${heroBg}')` }}
