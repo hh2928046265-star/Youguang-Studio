@@ -4,10 +4,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useContent } from "@/lib/content-context";
+import { useImageUrl } from "@/lib/use-file-url";
 
 export default function About() {
   const { content } = useContent();
-  const { aboutContent } = content;
+  const { aboutContent: aboutContentRaw } = content;
+  const aboutContentImage = useImageUrl(aboutContentRaw.image);
+  const aboutContent = { ...aboutContentRaw, image: aboutContentImage };
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,

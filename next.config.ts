@@ -2,6 +2,7 @@
 
 const nextConfig: NextConfig = {
   output: "export",
+  basePath: "/Youguang-Studio",
   images: {
     unoptimized: true,
   },

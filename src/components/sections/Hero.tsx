@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useContent } from "@/lib/content-context";
+import { useImageUrl } from "@/lib/use-file-url";
 
 export default function Hero() {
   const { content } = useContent();
-  const { siteConfig, heroBg } = content;
+  const { siteConfig, heroBg: heroBgRaw } = content;
+  const heroBg = useImageUrl(heroBgRaw);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);

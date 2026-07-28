@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContent } from "@/lib/content-context";
+import { storeFile } from "@/lib/file-store";
 import type { SiteContent } from "@/lib/content-store";
 
 const ADMIN_USER = "周游";
@@ -362,36 +363,27 @@ function MediaManager({ onClose }: { onClose: () => void }) {
     async (slot: ImageSlot, file: File) => {
       setUploading(slot.id);
       setMessage("");
-      const formData = new FormData();
-      formData.append("file", file);
 
       try {
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        if (data.success) {
-          if (slot.contentKey === "heroBg") {
-            updateContent({ heroBg: data.path });
-          } else if (
-            slot.contentKey === "aboutContent" && slot.nestedKey
-          ) {
-            updateContent({
-              aboutContent: { ...content.aboutContent, [slot.nestedKey]: data.path },
-            });
-          } else if (slot.contentKey === "projects") {
-            const updatedProjects = content.projects.map((p) =>
-              p.id === slot.id.replace("-video", "") ? { ...p, [slot.nestedKey || "image"]: data.path } : p
-            );
-            updateContent({ projects: updatedProjects });
-          }
-          setMessage(`✅ ${slot.label} 上传成功`);
-        } else {
-          setMessage(`❌ 上传失败: ${data.error}`);
+        const fileId = await storeFile(file);
+
+        if (slot.contentKey === "heroBg") {
+          updateContent({ heroBg: fileId });
+        } else if (
+          slot.contentKey === "aboutContent" && slot.nestedKey
+        ) {
+          updateContent({
+            aboutContent: { ...content.aboutContent, [slot.nestedKey]: fileId },
+          });
+        } else if (slot.contentKey === "projects") {
+          const updatedProjects = content.projects.map((p) =>
+            p.id === slot.id.replace("-video", "") ? { ...p, [slot.nestedKey || "image"]: fileId } : p
+          );
+          updateContent({ projects: updatedProjects });
         }
+        setMessage(`\u2705 ${slot.label} \u4e0a\u4f20\u6210\u529f`);
       } catch {
-        setMessage("❌ 网络错误，请重试");
+        setMessage("\u274c \u4e0a\u4f20\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5");
       }
       setUploading(null);
     },
@@ -402,23 +394,13 @@ function MediaManager({ onClose }: { onClose: () => void }) {
     async (file: File) => {
       setUploading("video");
       setMessage("");
-      const formData = new FormData();
-      formData.append("file", file);
 
       try {
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        if (data.success) {
-          updateContent({ showreelUrl: data.path });
-          setMessage("✅ Showreel 视频上传成功");
-        } else {
-          setMessage(`❌ 上传失败: ${data.error}`);
-        }
+        const fileId = await storeFile(file);
+        updateContent({ showreelUrl: fileId });
+        setMessage("\u2705 Showreel \u89c6\u9891\u4e0a\u4f20\u6210\u529f");
       } catch {
-        setMessage("❌ 网络错误，请重试");
+        setMessage("\u274c \u4e0a\u4f20\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5");
       }
       setUploading(null);
     },

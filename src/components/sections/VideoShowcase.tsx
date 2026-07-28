@@ -3,10 +3,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useContent } from "@/lib/content-context";
+import { useVideoUrl } from "@/lib/use-file-url";
 
 export default function VideoShowcase() {
   const { content } = useContent();
-  const { showreelUrl } = content;
+  const { showreelUrl: showreelUrlRaw } = content;
+  const showreelUrl = useVideoUrl(showreelUrlRaw);
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
