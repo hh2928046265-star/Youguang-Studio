@@ -99,7 +99,7 @@ export async function loadRemoteContent(basePath: string = ""): Promise<SiteCont
   if (publishedCache) return publishedCache;
   if (publishedPromise) return publishedPromise;
 
-  publishedPromise = fetch(basePath + "/content.json")
+  publishedPromise = fetch(basePath + "/content.json?v=" + Date.now())
     .then(res => {
       if (!res.ok) throw new Error("no remote content");
       return res.json();
