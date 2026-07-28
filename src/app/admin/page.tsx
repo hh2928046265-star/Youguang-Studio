@@ -108,6 +108,7 @@ type EditSection =
   | "projects"
   | "contact"
   | "site"
+  | "publish"
   | null;
 
 interface ImageSlot {
@@ -257,6 +258,16 @@ export default function AdminPage() {
           >
             预览前台 →
           </a>
+          <button
+            onClick={() => setActiveSection(activeSection === "publish" ? null : "publish")}
+            className={`px-4 py-2 text-xs tracking-wider rounded-lg transition-all duration-300 border ${
+              activeSection === "publish"
+                ? "bg-gold text-ivory border-gold"
+                : "text-gold hover:bg-gold/10 border-gold/30"
+            }`}
+          >
+            发布到网站
+          </button>
         </div>
       </nav>
 
@@ -286,6 +297,9 @@ export default function AdminPage() {
               key="contact"
               onClose={() => setActiveSection(null)}
             />
+          )}
+          {activeSection === "publish" && (
+            <PublishPanel key="publish" onClose={() => setActiveSection(null)} />
           )}
         </AnimatePresence>
 
