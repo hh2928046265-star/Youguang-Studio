@@ -932,21 +932,65 @@ function SaveButton({ onClick }: { onClick: () => void }) {
 // ============================================================
 // 发布到网站面板
 // ============================================================
-// 将 IndexedDB 文件 ID 替换为 base64 data URL
-async function embedFilesInContent(obj: any): Promise<void> {
+// 将 IndexedDB 文件上传到 GitHub 并替换为路径
+async function embedFilesInContent(obj: any, token: string): Promise<void> {
   const fileIdPattern = /^[a-f0-9-]{36}____/;
-  
+  const uploaded = new Map<string, string>(); // id -> path 缓存
+
+  async function uploadToGitHub(id: string, file: File): Promise<string> {
+    const ext = file.name.split(".").pop() || "jpg";
+    const safeName = id.replace(/[^a-zA-Z0-9._-]/g, "_") + "." + ext;
+    const path = "out/uploads/" + safeName;
+    
+    // 转 base64
+    const dataUrl = await new Promise<string>((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => resolve("");
+      reader.readAsDataURL(file);
+    });
+    if (!dataUrl) return id;
+    
+    const base64Content = dataUrl.split(",")[1];
+    
+    // 检查文件是否已存在
+    let sha = "";
+    try {
+      const getRes = await fetch(
+        "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/" + path,
+        { headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json" } }
+      );
+      if (getRes.ok) {
+        const data = await getRes.json();
+        sha = data.sha;
+      }
+    } catch {}
+    
+    // 上传文件
+    const body: any = { message: "上传媒体文件", content: base64Content, branch: "main" };
+    if (sha) body.sha = sha;
+    
+    await fetch(
+      "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/" + path,
+      {
+        method: "PUT",
+        headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json", "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
+    
+    return "/Youguang-Studio/uploads/" + safeName;
+  }
+
   async function processValue(val: any): Promise<any> {
-    if (typeof val === "string" && fileIdPattern.test(val) && !val.startsWith("data:")) {
+    if (typeof val === "string" && fileIdPattern.test(val) && !val.startsWith("data:") && !val.startsWith("/")) {
+      if (uploaded.has(val)) return uploaded.get(val);
       try {
         const file = await getFile(val);
         if (file) {
-          return await new Promise<string>((resolve) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = () => resolve(val);
-            reader.readAsDataURL(file);
-          });
+          const path = await uploadToGitHub(val, file);
+          uploaded.set(val, path);
+          return path;
         }
       } catch {}
     }
@@ -1005,7 +1049,7 @@ function PublishPanel({ onClose }: { onClose: () => void }) {
 
       // 将 IndexedDB 文件 ID 替换为 base64 data URL，让图片能跨设备显示
       setStatusMsg("正在处理图片...");
-      await embedFilesInContent(publishContent);
+      await embedFilesInContent(publishContent, token.trim());
       const jsonStr = JSON.stringify(publishContent, null, 2);
       const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
 
