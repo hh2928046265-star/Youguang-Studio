@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContent } from "@/lib/content-context";
-import { storeFile } from "@/lib/file-store";
+import { storeFile, getFile } from "@/lib/file-store";
 import type { SiteContent } from "@/lib/content-store";
 
 const ADMIN_USER = "周游";
@@ -932,6 +932,51 @@ function SaveButton({ onClick }: { onClick: () => void }) {
 // ============================================================
 // 发布到网站面板
 // ============================================================
+// 将 IndexedDB 文件 ID 替换为 base64 data URL
+async function embedFilesInContent(obj: any): Promise<void> {
+  const fileIdPattern = /^[a-f0-9-]{36}____/;
+  
+  async function processValue(val: any): Promise<any> {
+    if (typeof val === "string" && fileIdPattern.test(val) && !val.startsWith("data:")) {
+      try {
+        const file = await getFile(val);
+        if (file) {
+          return await new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = () => resolve(val);
+            reader.readAsDataURL(file);
+          });
+        }
+      } catch {}
+    }
+    return val;
+  }
+
+  async function walk(o: any): Promise<void> {
+    if (!o || typeof o !== "object") return;
+    if (Array.isArray(o)) {
+      for (let i = 0; i < o.length; i++) {
+        if (typeof o[i] === "string") {
+          o[i] = await processValue(o[i]);
+        } else if (typeof o[i] === "object") {
+          await walk(o[i]);
+        }
+      }
+    } else {
+      for (const key of Object.keys(o)) {
+        if (typeof o[key] === "string") {
+          o[key] = await processValue(o[key]);
+        } else if (typeof o[key] === "object") {
+          await walk(o[key]);
+        }
+      }
+    }
+  }
+
+  await walk(obj);
+}
+
 function PublishPanel({ onClose }: { onClose: () => void }) {
   const { content } = useContent();
   const [token, setToken] = React.useState("");
@@ -957,6 +1002,10 @@ function PublishPanel({ onClose }: { onClose: () => void }) {
       // 直接从 localStorage 读取最新内容
       const stored = localStorage.getItem("youguang_content");
       const publishContent = stored ? { ...JSON.parse(stored) } : content;
+
+      // 将 IndexedDB 文件 ID 替换为 base64 data URL，让图片能跨设备显示
+      setStatusMsg("正在处理图片...");
+      await embedFilesInContent(publishContent);
       const jsonStr = JSON.stringify(publishContent, null, 2);
       const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
 
