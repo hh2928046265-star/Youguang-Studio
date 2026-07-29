@@ -537,6 +537,8 @@ function MediaManager({ onClose }: { onClose: () => void }) {
               ? content.heroVideo || ""
               : slot.contentKey === "aboutContent"
               ? content.aboutContent.image
+              : slot.contentKey === "marqueeImages"
+              ? (content.marqueeImages || [])[parseInt(slot.nestedKey || "0")] || ""
               : content.projects.find((p) => p.id === slot.id)?.image || "";
           return (
             <div
