@@ -10,8 +10,8 @@ export default function ResponsiveGalaxy() {
   useEffect(() => {
     const update = () => {
       if (window.innerWidth < 768) {
-        setDensity(0.6);
-        setGlowIntensity(1.2);
+        setDensity(1.0);
+        setGlowIntensity(1.5);
       } else {
         setDensity(1.0);
         setGlowIntensity(1.5);
