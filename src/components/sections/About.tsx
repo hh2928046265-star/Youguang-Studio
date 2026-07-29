@@ -6,7 +6,6 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useContent } from "@/lib/content-context";
 import { useImageUrl } from "@/lib/use-file-url";
 import { AnimatedChars } from "@/components/effects/AnimatedText";
-import CornerDecorations from "@/components/effects/CornerDecorations";
 
 export default function About() {
   const { content } = useContent();
@@ -23,7 +22,6 @@ export default function About() {
 
   return (
     <section ref={sectionRef} id="about" className="relative min-h-screen flex items-center px-8 md:px-16 py-24 md:py-32 paper-texture">
-      <CornerDecorations />
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-16 md:gap-24">
         <motion.div style={{ y: titleY }}>
           <ScrollReveal>
@@ -67,3 +65,4 @@ export default function About() {
     </section>
   );
 }
+
