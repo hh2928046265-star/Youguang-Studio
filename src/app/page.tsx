@@ -7,7 +7,6 @@ import {
   Philosophy,
   FiveDimensions,
   ProjectDetail,
-  VideoShowcase,
   CreativeAbility,
   Timeline,
   Contact,
