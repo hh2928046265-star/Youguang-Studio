@@ -10,7 +10,7 @@ export default function VignetteOverlay() {
     offset: ["start start", "end end"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0.15, 0.04, 0, 0.04, 0.15]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0.12, 0.03, 0, 0.03, 0.12]);
 
   return (
     <div ref={ref} className="fixed inset-0 pointer-events-none z-[2]">
@@ -19,7 +19,7 @@ export default function VignetteOverlay() {
         style={{
           opacity,
           background:
-            "radial-gradient(ellipse at center, transparent 55%, rgba(21,21,21,0.5) 100%)",
+            "radial-gradient(ellipse at center, transparent 60%, #000000 100%)",
         }}
       />
     </div>

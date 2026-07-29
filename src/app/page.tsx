@@ -1,13 +1,10 @@
 ﻿import { Navigation, Footer } from "@/components/layout";
 import {
-  LightSweep,
   VignetteOverlay,
   ParallaxWrapper,
   LineDraw,
   CenterProximity,
   SplashScreen,
-  ClickRipple,
-  Cursor,
 } from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
 import GoldParticles from "@/components/effects/GoldParticles";
@@ -32,11 +29,8 @@ export default function Home() {
       <CursorGlow />
       <GrainOverlay />
       <GoldParticles />
-      <ClickRipple />
       <ScrollProgress />
-      <LightSweep />
       <VignetteOverlay />
-      <Cursor />
       <Navigation />
       <main>
         <Hero />

@@ -21,13 +21,13 @@ export default function CursorGlow() {
   return (
     <div
       ref={glowRef}
-      className="pointer-events-none fixed inset-0 z-[9999]"
+      className="pointer-events-none fixed inset-0 z-[100]"
       style={{ willChange: "transform" }}
     >
-      <div className="absolute w-[400px] h-[400px] rounded-full opacity-[0.06] transition-transform duration-700 ease-out"
+      <div className="absolute w-[400px] h-[400px] rounded-full opacity-[0.03] transition-transform duration-700 ease-out"
         style={{
           background: "radial-gradient(circle, #B99A5B 0%, #D4B978 30%, transparent 70%)",
-          filter: "blur(40px)",
+          filter: "blur(60px)",
         }}
       />
     </div>
