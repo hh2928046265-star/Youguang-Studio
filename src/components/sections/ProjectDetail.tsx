@@ -61,11 +61,14 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
   const targetScale = 1 - (total - 1 - index) * SCALE_STEP;
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, targetScale]);
   const opacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0.3]);
-  const borderRadius = useTransform(scrollYProgress, [0, 0.5], [40, 60]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.5], [24, 40]);
   const topOffset = index * 28;
 
   return (
-    <div ref={containerRef} className="h-[85vh] sticky top-24 md:top-32 flex items-center justify-center">
+    <div
+      ref={containerRef}
+      className="h-[80vh] md:h-[85vh] sticky top-16 md:top-24 md:top-32 flex items-center justify-center"
+    >
       <BorderGlow>
       <motion.div
         className="relative w-full max-w-5xl mx-auto overflow-hidden border border-gold/20 bg-[#0C0C0C]"
@@ -77,33 +80,30 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
           willChange: "transform",
         }}
       >
-        <div className="absolute top-8 left-8 z-10">
+        <div className="absolute top-6 left-6 md:top-8 md:left-8 z-10">
           <BigNumber number={String(index + 1).padStart(2, "0")} />
         </div>
 
-        <div className="relative z-10 p-8 md:p-12 pt-20 md:pt-24">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs tracking-[0.3em] uppercase text-stone-light">
-              {project.number} · {project.category}
-            </span>
-          </div>
-          <h3 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[0.9] tracking-tight mb-4 gold-heading">
+        <div className="relative z-10 p-6 md:p-8 lg:p-12 pt-14 md:pt-20 lg:pt-24">
+          <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-stone-light">
+            {project.number} · {project.category}
+          </span>
+
+          <h3 className="font-serif text-2xl sm:text-3xl md:text-5xl lg:text-7xl text-ink leading-[0.9] tracking-tight mt-3 mb-2 gold-heading">
             {project.name}
           </h3>
-          <p className="text-lg md:text-xl text-stone font-serif italic mb-8">
+
+          <p className="text-sm md:text-lg lg:text-xl text-stone font-serif italic mb-4 md:mb-8">
             {project.subtitle}
           </p>
-          <p className="text-sm md:text-base text-stone-light leading-relaxed font-light max-w-xl mb-6">
-            {project.description}
-          </p>
 
-          <div className="mt-10">
+          <div className="mt-6 md:mt-10">
             <ParallaxReveal>
             <DynamicLight>
             {videoUrl && videoUrl.startsWith("data:") ? (
               <ShineSweep>
               <ImageZoom>
-              <TiltCard className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-black" maxTilt={5}>
+              <TiltCard className="relative aspect-[16/9] rounded-2xl md:rounded-[28px] overflow-hidden bg-black" maxTilt={5}>
                 <VideoPlayer src={videoUrl} poster={imageUrl} />
               </TiltCard>
               </ImageZoom>
@@ -111,7 +111,7 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
             ) : (
               <ShineSweep>
               <ImageZoom>
-              <TiltCard className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-[#111]" maxTilt={5}>
+              <TiltCard className="relative aspect-[16/9] rounded-2xl md:rounded-[28px] overflow-hidden bg-[#111]" maxTilt={5}>
                 {imageUrl && (
                   <img
                     src={imageUrl}
@@ -146,11 +146,11 @@ export default function ProjectDetail() {
       <div className="relative pb-20">
         <div className="relative z-20">
           <ScrollReveal>
-            <div className="text-center pt-20 pb-16">
+            <div className="text-center pt-16 md:pt-20 pb-10 md:pb-16">
               <p className="text-xs tracking-[0.3em] uppercase text-stone-light mb-4">
                 Featured Works
               </p>
-              <h2 className="font-serif text-5xl md:text-7xl text-ink tracking-tight gold-heading">
+              <h2 className="font-serif text-3xl sm:text-5xl md:text-7xl text-ink tracking-tight gold-heading">
                 作品集
               </h2>
             </div>
@@ -171,4 +171,3 @@ export default function ProjectDetail() {
     </div>
   );
 }
-

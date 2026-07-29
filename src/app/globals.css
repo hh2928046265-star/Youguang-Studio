@@ -29,7 +29,7 @@
   ::selection { background-color: rgba(184, 153, 91, 0.25); }
 }
 
-.galaxy-container { width: 100%; height: 100%; position: relative; }
+.galaxy-container { width: 100%; height: 100%; }
 
 .custom-cursor, body.custom-cursor * { cursor: none !important; }
 
@@ -42,14 +42,6 @@
   box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 8px 30px rgba(0,0,0,0.04);
   border: 1px solid rgba(185,154,91,0.15);
 }
-
-.film-border { position: relative; border: 2px solid #1a1a1a; padding: 0; }
-.film-border::before, .film-border::after {
-  content: ''; position: absolute; left: 0; right: 0; height: 6px;
-  background: repeating-linear-gradient(90deg, #1a1a1a 0px, #1a1a1a 16px, transparent 16px, transparent 20px);
-}
-.film-border::before { top: -8px; }
-.film-border::after { bottom: -8px; }
 
 .gold-rule { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #B99A5B, transparent); margin: 0 auto; }
 

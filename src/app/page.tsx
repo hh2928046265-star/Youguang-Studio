@@ -20,12 +20,12 @@ import {
 export default function Home() {
   return (
     <>
-      <div className="fixed inset-0 z-0">
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <ResponsiveGalaxy />
       </div>
       <VignetteOverlay />
       <Navigation />
-      <main>
+      <main className="relative z-[1]">
         <Hero />
         <Marquee />
         <LineDraw />
