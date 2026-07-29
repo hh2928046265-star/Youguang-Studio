@@ -4,7 +4,8 @@ import { useContent } from "@/lib/content-context";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ContentGate({ children }: { children: React.ReactNode }) {
-  const { isLoaded } = useContent();
+  const { isLoaded, content } = useContent();
+  console.log("[游光 v3] isLoaded:", isLoaded, "marqueeImages:", content.marqueeImages?.length || 0);
 
   return (
     <AnimatePresence mode="wait">
