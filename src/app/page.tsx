@@ -3,7 +3,6 @@ import {
   VignetteOverlay,
   ParallaxWrapper,
   LineDraw,
-  CenterProximity,
   SplashScreen,
 } from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
@@ -40,7 +39,7 @@ export default function Home() {
         <LineDraw />
         <ParallaxWrapper><Philosophy /></ParallaxWrapper>
         <LineDraw />
-        <CenterProximity><FiveDimensions /></CenterProximity>
+        <FiveDimensions />
         <LineDraw />
         <ProjectDetail />
         <LineDraw />
