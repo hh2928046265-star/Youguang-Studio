@@ -6,7 +6,6 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useContent } from "@/lib/content-context";
 import { useImageUrl } from "@/lib/use-file-url";
 import { AnimatedChars } from "@/components/effects/AnimatedText";
-import SplitText from "@/components/effects/SplitText";
 import CornerDecorations from "@/components/effects/CornerDecorations";
 
 export default function About() {
@@ -29,7 +28,9 @@ export default function About() {
         <motion.div style={{ y: titleY }}>
           <ScrollReveal>
             <div>
-              <SplitText text={aboutContent.title} className="font-serif text-5xl gold-shimmer sm:text-6xl md:text-7xl lg:text-[100px] text-ink leading-[0.95] tracking-tight" />
+              <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[100px] text-ink leading-[0.95] tracking-tight gold-heading">
+                {aboutContent.title}
+              </h2>
               <p className="mt-6 text-lg md:text-xl text-stone font-serif italic tracking-wide">
                 {aboutContent.subtitle}
               </p>
