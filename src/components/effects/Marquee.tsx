@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useContent } from "@/lib/content-context";
+import { useImageUrl } from "@/lib/use-file-url";
 
 // 默认展示图片 — 使用 motionsites 的免费 GIF，有真实内容时会被覆盖
 const DEFAULT_IMAGES = [
@@ -46,11 +47,17 @@ function MarqueeRow({ images, speed = 0.3, direction = 1 }: { images: string[]; 
     <div ref={ref} className="flex gap-3 will-change-transform" style={{ transform: "translateX(" + offset + "px)" }}>
       {tripled.map((src, i) => (
         <div key={i} className="flex-shrink-0 w-[280px] h-[180px] md:w-[420px] md:h-[270px] rounded-2xl overflow-hidden bg-[#111] border border-white/[0.03]">
-          <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+          <MarqueeImage src={src} />
         </div>
       ))}
     </div>
   );
+}
+
+// 单个图片组件，处理 IndexedDB 文件 ID 解析
+function MarqueeImage({ src }: { src: string }) {
+  const resolved = useImageUrl(src);
+  return <img src={resolved || src} alt="" className="w-full h-full object-cover" loading="lazy" />;
 }
 
 export default function Marquee() {
