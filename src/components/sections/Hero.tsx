@@ -3,6 +3,8 @@
 import { useContent } from "@/lib/content-context";
 import { useVideoUrl, useImageUrl } from "@/lib/use-file-url";
 import { motion } from "framer-motion";
+import CountUp from "@/components/effects/CountUp";
+import SplitText from "@/components/effects/SplitText";
 
 export default function Hero() {
   const { content } = useContent();
@@ -61,7 +63,7 @@ export default function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            {siteConfig.name}
+            <SplitText text={siteConfig.name} className="inline" delay={0.2} />
           </motion.h1>
         </motion.div>
 
@@ -82,6 +84,23 @@ export default function Hero() {
         >
           {siteConfig.tagline}
         </motion.p>
+
+        {/* 统计数字 */}
+        <motion.div
+          className="absolute bottom-24 left-8 md:left-16 flex gap-12 md:gap-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.6 }}
+        >
+          <div>
+            <CountUp target={5} suffix="路" className="text-3xl md:text-4xl font-serif text-gold tracking-tight" />
+            <p className="text-xs text-stone-light mt-1 tracking-wider">创造维度</p>
+          </div>
+          <div>
+            <CountUp target={2026} className="text-3xl md:text-4xl font-serif text-gold tracking-tight" />
+            <p className="text-xs text-stone-light mt-1 tracking-wider">起航之年</p>
+          </div>
+        </motion.div>
 
         {/* 底部滚动提示 */}
         <motion.a

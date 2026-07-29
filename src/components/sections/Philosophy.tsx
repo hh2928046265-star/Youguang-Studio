@@ -1,6 +1,7 @@
 'use client';
 
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import SplitText from "@/components/effects/SplitText";
 import { useContent } from "@/lib/content-context";
 
 export default function Philosophy() {

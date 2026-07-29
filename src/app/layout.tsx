@@ -1,8 +1,12 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond, Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers/Providers";
 import { SplashScreen, Cursor, ClickRipple } from "@/components/ui";
+import CursorGlow from "@/components/effects/CursorGlow";
+import GrainOverlay from "@/components/effects/GrainOverlay";
+import ScrollProgress from "@/components/effects/ScrollProgress";
+import GoldParticles from "@/components/effects/GoldParticles";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -49,6 +53,9 @@ export default function RootLayout({
         <Providers>
           <SplashScreen />
           <Cursor />
+          <CursorGlow />
+          <GrainOverlay />
+          <ScrollProgress />
           <ClickRipple />
           {children}
         </Providers>

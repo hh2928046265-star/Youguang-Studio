@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useContent } from "@/lib/content-context";
 import { useImageUrl } from "@/lib/use-file-url";
 import { AnimatedChars } from "@/components/effects/AnimatedText";
+import SplitText from "@/components/effects/SplitText";
 
 export default function About() {
   const { content } = useContent();

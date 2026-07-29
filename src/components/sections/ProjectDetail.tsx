@@ -6,6 +6,9 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import SectionDivider from "@/components/ui/SectionDivider";
 import { useContent } from "@/lib/content-context";
 import { useImageUrl, useVideoUrl } from "@/lib/use-file-url";
+import TiltCard from "@/components/effects/TiltCard";
+import SplitText from "@/components/effects/SplitText";
+import ParallaxReveal from "@/components/effects/ParallaxReveal";
 
 const TOTAL_CARDS = 5;
 const SCALE_STEP = 0.03;
@@ -90,24 +93,21 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
               {project.number} 路 • {project.category}
             </span>
           </div>
-          <h3 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[0.9] tracking-tight mb-4 gold-shimmer">
-            {project.name}
-          </h3>
-          <p className="text-lg md:text-xl text-stone font-serif italic mb-8">
-            {project.subtitle}
-          </p>
+          <SplitText text={project.name} className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[0.9] tracking-tight mb-4 gold-shimmer" />
+          <SplitText text={project.subtitle} className="text-lg md:text-xl text-stone font-serif italic mb-8" delay={0.3} />
           <p className="text-sm md:text-base text-stone-light leading-relaxed font-light max-w-xl">
             {project.description}
           </p>
 
           {/* 媒体展示 */}
           <div className="mt-10">
+            <ParallaxReveal>
             {videoUrl && videoUrl.startsWith("data:") ? (
-              <div className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-black">
+              <TiltCard className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-black" maxTilt={5}>
                 <VideoPlayer src={videoUrl} poster={imageUrl} />
-              </div>
+              </TiltCard>
             ) : (
-              <div className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-[#111]">
+              <TiltCard className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-[#111]" maxTilt={5}>
                 {imageUrl && (
                   <img
                     src={imageUrl}
@@ -116,8 +116,9 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
                     loading="lazy"
                   />
                 )}
-              </div>
+              </TiltCard>
             )}
+          </ParallaxReveal>
           </div>
         </div>
 

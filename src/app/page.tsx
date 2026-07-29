@@ -1,5 +1,6 @@
-﻿import { Navigation, Footer } from "@/components/layout";
-import { LightParticles, LightSweep, VignetteOverlay, ParallaxWrapper, LineDraw, CenterProximity } from "@/components/ui";
+import { Navigation, Footer } from "@/components/layout";
+import { LightSweep, VignetteOverlay, ParallaxWrapper, LineDraw, CenterProximity } from "@/components/ui";
+import GoldParticles from "@/components/effects/GoldParticles";
 import {
   Hero,
   About,
@@ -15,7 +16,7 @@ import {
 export default function Home() {
   return (
     <>
-      <LightParticles />
+      <GoldParticles />
       <LightSweep />
       <VignetteOverlay />
       <Navigation />
