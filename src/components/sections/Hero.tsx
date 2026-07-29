@@ -41,18 +41,18 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <motion.h1
-            className="font-serif text-[22vw] sm:text-[18vw] md:text-[16vw] lg:text-[14vw] text-ink tracking-tighter leading-[0.85] gold-shimmer"
+            className="font-serif text-[24vw] sm:text-[18vw] md:text-[16vw] lg:text-[14vw] text-ink tracking-tighter leading-[0.85] gold-shimmer"
             style={{ letterSpacing: "-0.04em", fontWeight: 300 }}
-            initial={{ y: 80, opacity: 0 }}
+            initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.4, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {siteConfig.name.replace("Studio", "")}
           </motion.h1>
         </motion.div>
 
         <motion.p
-          className="text-[7vw] sm:text-[5vw] md:text-[4vw] font-serif italic text-gold tracking-wide -mt-1 sm:-mt-2 md:-mt-4 mb-4 sm:mb-6"
+          className="text-[8vw] sm:text-[5vw] md:text-[4vw] font-serif italic text-gold tracking-wide -mt-1 sm:-mt-2 md:-mt-4 mb-4 sm:mb-6"
           style={{ fontWeight: 300 }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,17 +61,18 @@ export default function Hero() {
           Studio
         </motion.p>
 
+        {/* 手机端简化描述 */}
         <motion.p
-          className="text-xs sm:text-sm md:text-base text-stone font-light tracking-[0.15em] max-w-[280px] sm:max-w-md"
+          className="text-xs sm:text-sm md:text-base text-stone font-light tracking-[0.15em]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          {siteConfig.fullName} · {siteConfig.tagline}
+          <span className="sm:hidden">{siteConfig.tagline}</span>
+          <span className="hidden sm:inline">{siteConfig.fullName} · {siteConfig.tagline}</span>
         </motion.p>
       </div>
 
-      {/* 统计数字 — 仅桌面端 */}
       <FloatAnimation amplitude={10} period={5}>
         <motion.div
           className="hidden md:block absolute right-8 md:right-16 top-[22%] z-10"
@@ -115,14 +116,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 2.2 }}
       >
-        <span className="text-xs sm:text-sm font-light tracking-[0.25em] uppercase">Explore Works</span>
-        <motion.span
-          className="inline-block text-base sm:text-lg"
-          animate={{ x: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          →
-        </motion.span>
+        <span className="text-xs sm:text-sm font-light tracking-[0.25em] uppercase">↓</span>
       </motion.a>
 
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 sm:h-48 bg-gradient-to-b from-transparent to-black z-[2]" />
