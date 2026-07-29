@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { useContent } from "@/lib/content-context";
-import Magnet from "@/components/effects/Magnet";
 
 const nodeColors = [
   "#9AAD94",
@@ -79,46 +78,45 @@ export default function FiveDimensions() {
               </div>
             </motion.div>
 
-            {/* 卫星节点 — 磁吸 + 渐显动画 */}
+            {/* 卫星节点 — 固定位置，hover 微动 */}
             {dimensionNodes.map((node, index) => {
               const color = nodeColors[index] || "#D4B978";
               return (
-                <Magnet key={node.id} padding={100} strength={4}>
-                  <motion.a
-                    href={node.href}
-                    className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2"
-                    style={{ left: node.x + "%", top: node.y + "%" }}
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.5 + index * 0.12,
-                      ease: [0.25, 0.1, 0.25, 1],
+                <motion.a
+                  key={node.id}
+                  href={node.href}
+                  className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+                  style={{ left: node.x + "%", top: node.y + "%" }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.5 + index * 0.12,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  onMouseEnter={() => setHoveredNode(node.id)}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  animate={{ y: hoveredNode === node.id ? -6 : 0, scale: hoveredNode === node.id ? 1.05 : 1 }}
+                >
+                  <div
+                    className="relative px-5 py-3 md:px-6 md:py-4 rounded-2xl border transition-all duration-500"
+                    style={{
+                      backgroundColor: hoveredNode === node.id ? color + "20" : "transparent",
+                      borderColor: color,
+                      borderWidth: "1px",
                     }}
-                    onMouseEnter={() => setHoveredNode(node.id)}
-                    onMouseLeave={() => setHoveredNode(null)}
-                    animate={{ y: hoveredNode === node.id ? -6 : 0, scale: hoveredNode === node.id ? 1.05 : 1 }}
                   >
-                    <div
-                      className="relative px-5 py-3 md:px-6 md:py-4 rounded-2xl border transition-all duration-500"
-                      style={{
-                        backgroundColor: hoveredNode === node.id ? color + "20" : "transparent",
-                        borderColor: color,
-                        borderWidth: "1px",
-                      }}
-                    >
-                      <p className="text-sm md:text-base font-serif tracking-wide whitespace-nowrap transition-colors duration-500"
-                        style={{ color: hoveredNode === node.id ? color : color }}>
-                        {node.name}
-                      </p>
-                      <p className="text-xs mt-1 tracking-wider transition-colors duration-500"
-                        style={{ color: color, opacity: hoveredNode === node.id ? 0.9 : 0.5 }}>
-                        {node.subtitle}
-                      </p>
-                    </div>
-                  </motion.a>
-                </Magnet>
+                    <p className="text-sm md:text-base font-serif tracking-wide whitespace-nowrap transition-colors duration-500"
+                      style={{ color: hoveredNode === node.id ? color : color }}>
+                      {node.name}
+                    </p>
+                    <p className="text-xs mt-1 tracking-wider transition-colors duration-500"
+                      style={{ color: color, opacity: hoveredNode === node.id ? 0.9 : 0.5 }}>
+                      {node.subtitle}
+                    </p>
+                  </div>
+                </motion.a>
               );
             })}
           </div>

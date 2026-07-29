@@ -10,19 +10,19 @@ export default function CursorGlow() {
     if (!glow) return;
 
     let raf: number;
-    let targetX = -300;
-    let targetY = -300;
-    let currentX = -300;
-    let currentY = -300;
+    let targetX = -150;
+    let targetY = -150;
+    let currentX = -150;
+    let currentY = -150;
 
     const onMove = (e: MouseEvent) => {
-      targetX = e.clientX - 300;
-      targetY = e.clientY - 300;
+      targetX = e.clientX - 150;
+      targetY = e.clientY - 150;
     };
 
     const animate = () => {
-      currentX += (targetX - currentX) * 0.06;
-      currentY += (targetY - currentY) * 0.06;
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
       glow.style.transform = "translate(" + currentX + "px, " + currentY + "px)";
       raf = requestAnimationFrame(animate);
     };
@@ -45,10 +45,10 @@ export default function CursorGlow() {
       <div
         className="absolute rounded-full"
         style={{
-          width: "600px",
-          height: "600px",
-          background: "radial-gradient(ellipse at center, rgba(185,154,91,0.06) 0%, rgba(185,154,91,0.025) 25%, rgba(185,154,91,0.005) 50%, transparent 70%)",
-          filter: "blur(80px)",
+          width: "300px",
+          height: "300px",
+          background: "radial-gradient(ellipse at center, rgba(185,154,91,0.05) 0%, rgba(185,154,91,0.015) 40%, transparent 70%)",
+          filter: "blur(40px)",
         }}
       />
     </div>
