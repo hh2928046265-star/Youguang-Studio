@@ -93,11 +93,15 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
             {project.name}
           </h3>
 
-          <p className="text-sm md:text-lg lg:text-xl text-stone font-serif italic mb-4 md:mb-8">
+          <p className="text-sm md:text-lg lg:text-xl text-stone font-serif italic mb-3 md:mb-6">
             {project.subtitle}
           </p>
 
-          <div className="mt-6 md:mt-10">
+          <p className="text-xs md:text-sm lg:text-base text-stone-light leading-relaxed font-light max-w-xl mb-4 md:mb-6 line-clamp-3 md:line-clamp-none">
+            {project.description}
+          </p>
+
+          <div className="mt-4 md:mt-10">
             <ParallaxReveal>
             <DynamicLight>
             {videoUrl && videoUrl.startsWith("data:") ? (
