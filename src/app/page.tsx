@@ -22,15 +22,15 @@ export default function Home() {
     <>
       <div className="fixed inset-0 z-0">
         <Galaxy
-          hueShift={45}
-          saturation={0.3}
-          glowIntensity={2.0}
-          density={1.3}
+          hueShift={0}
+          saturation={0}
+          glowIntensity={1.5}
+          density={1.0}
           mouseRepulsion={true}
           mouseInteraction={true}
-          twinkleIntensity={0.5}
+          twinkleIntensity={0.4}
           repulsionStrength={1.5}
-          speed={0.7}
+          speed={0.6}
           transparent={true}
         />
       </div>
