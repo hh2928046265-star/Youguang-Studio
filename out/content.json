@@ -1,0 +1,215 @@
+{
+  "siteConfig": {
+    "name": "游光 Studio",
+    "fullName": "Zhou You Visual Creation",
+    "creator": "周游",
+    "tagline": "AI时代数字视觉创作者",
+    "navItems": [
+      {
+        "label": "About",
+        "href": "#about"
+      },
+      {
+        "label": "Works",
+        "href": "#works"
+      },
+      {
+        "label": "Vision",
+        "href": "#vision"
+      },
+      {
+        "label": "Contact",
+        "href": "#contact"
+      }
+    ]
+  },
+  "aboutContent": {
+    "title": "关于周游",
+    "subtitle": "Zhou You",
+    "paragraphs": [
+      "影像并非只是时间的留存，而是人与世界的一次对话。\n\n一束穿过林间的光影，一场风吹过山野的回响，一座城市沉淀下来的气息，皆值得被凝望、被记录、被重新表达。\n\n让每一次凝视，都成为人与天地之间的一次相逢。\n\n乘物以游心，观光而见万象。\n\n—— 周游",
+      "从传统摄影到AI辅助创作，从静态影像到动态叙事，始终相信最好的作品永远在前方。这是一个持续进化的创作者，而非一个固定的标签。",
+      "2026年，创立游光 Studio，致力于打造属于AI时代的数字视觉创作方法论。"
+    ],
+    "image": "e222d1c9-254f-447e-88d5-bb8296a46146______20260728143527_1267_2.jpg"
+  },
+  "philosophyItems": [
+    {
+      "number": "01",
+      "title": "Observe",
+      "subtitle": "观察世界"
+    },
+    {
+      "number": "02",
+      "title": "Create",
+      "subtitle": "创造视觉"
+    },
+    {
+      "number": "03",
+      "title": "Share",
+      "subtitle": "传播价值"
+    }
+  ],
+  "dimensionNodes": [
+    {
+      "id": "visionloop",
+      "name": "VisionLoop",
+      "subtitle": "动态视觉",
+      "x": 50,
+      "y": 15,
+      "color": "#788B72",
+      "href": "#project-visionloop"
+    },
+    {
+      "id": "photoloop",
+      "name": "PhotoLoop",
+      "subtitle": "静态视觉",
+      "x": 82,
+      "y": 38,
+      "color": "#B99A5B",
+      "href": "#project-photoloop"
+    },
+    {
+      "id": "lumind",
+      "name": "Lumind",
+      "subtitle": "内容表达",
+      "x": 75,
+      "y": 72,
+      "color": "#66635D",
+      "href": "#project-lumind"
+    },
+    {
+      "id": "miguang",
+      "name": "觅光摄影助手",
+      "subtitle": "知识成长",
+      "x": 25,
+      "y": 72,
+      "color": "#8C8982",
+      "href": "#project-miguang"
+    },
+    {
+      "id": "shanhai",
+      "name": "山海风物志",
+      "subtitle": "视觉传播",
+      "x": 18,
+      "y": 38,
+      "color": "#9AAD94",
+      "href": "#project-shanhai"
+    }
+  ],
+  "projects": [
+    {
+      "id": "visionloop",
+      "number": "01",
+      "name": "VisionLoop",
+      "subtitle": "AI视觉创作辅助系统  让每一次影像创作，从灵感开始拥有方向。",
+      "description": "VisionLoop 是面向视觉创作者的新一代 AI 创作辅助系统，探索人工智能在摄影、影像策划与视觉表达中的深度应用。\n\n它连接创意构思与视觉执行，通过智能分析、创意辅助与视觉规划，帮助创作者突破传统创作流程的限制，让想法更快转化为可实现的视觉方案。\n\n从灵感捕捉，到视觉构建；\n从创意表达，到影像呈现。\n\nVisionLoop 致力于成为创作者与未来视觉技术之间的连接桥梁。\n下载网址：https://github.com/hh2928046265-star/visionloop",
+      "image": "ab309cdd-5802-44f5-b1be-addcd0a15682______2026-07-28_142518.png",
+      "category": "动态视觉"
+    },
+    {
+      "id": "photoloop",
+      "number": "02",
+      "name": "PhotoLoop",
+      "subtitle": "智能化摄影创作系统  让摄影从经验驱动，走向智能辅助。",
+      "description": "PhotoLoop 探索人工智能与摄影工作流的融合，通过数字化方式辅助摄影创作者完成从构思、拍摄到复盘的完整创作过程。\n\n它重新思考摄影工具的可能性，让摄影不再只是参数与技巧的积累，而成为一种更加系统化、可迭代的视觉创造方式。\n\n记录瞬间，也沉淀方法。\n\nPhotoLoop 希望帮助每一位创作者，在光影之中建立属于自己的视觉语言。\n下载网址：https://github.com/hh2928046265-star/PhotoLoop",
+      "image": "6a67f18e-d0ef-48cf-b090-d6492b902fb4______2026-07-28_142601.png",
+      "category": "静态视觉"
+    },
+    {
+      "id": "lumind",
+      "number": "03",
+      "name": "Lumind",
+      "subtitle": "AI内容创作与知识构建平台  让知识成为创造力的源泉。",
+      "description": "知光创序Lumind是一款面向学习者与内容创作者的 AI 工作平台，探索知识整理、内容生成与智能学习之间的新型关系。\n\n它将零散的信息转化为结构化的知识体系，让学习不再停留于信息获取，而成为持续创造的过程。\n\n从阅读，到理解；\n从积累，到表达。\n\n知光创序希望成为连接知识与创造之间的智能桥梁。\n下载网址：https://github.com/hh2928046265-star/lumind",
+      "image": "b83b9207-2251-430f-868f-20f29ce7b821______2026-07-28_144334.png",
+      "category": "内容表达"
+    },
+    {
+      "id": "miguang",
+      "number": "04",
+      "name": "觅光摄影助手",
+      "subtitle": "面向摄影学习者的智能成长工具  寻找光，也寻找属于自己的摄影语言。",
+      "description": "觅光摄影助手是一款为摄影学习者打造的智能辅助工具，通过系统化的方法帮助用户理解摄影基础、掌握视觉规律，并逐步建立自己的创作能力。\n\n它将复杂的摄影知识转化为更加直观、易理解的学习路径，让摄影学习从碎片化探索走向体系化成长。\n\n从第一次按下快门，\n到形成自己的视觉表达。\n\n觅光陪伴每一位摄影爱好者，探索光影背后的无限可能。\n地址：微信小程序搜索觅光摄影助手",
+      "image": "d2199e19-06fc-400f-8b28-194b485eaa93______2026-07-28_144610.png",
+      "category": "知识成长"
+    },
+    {
+      "id": "shanhai",
+      "number": "05",
+      "name": "山海风物志",
+      "subtitle": "地域文化视觉传播平台  以影像记录山海，以故事连接土地。",
+      "description": "山海风物志是一项面向地方文化与自然景观的数字视觉探索项目，致力于通过影像、内容与数字技术，重新呈现地域文化的独特魅力。\n\n它关注山川、人文、美食与生活方式之间的联系，用视觉语言记录一片土地的精神气质。\n\n让被时间沉淀的风物，被更多人看见。\n\n山海有迹，风物有声。\n网址：http://www.shanhemoon.com/",
+      "image": "c8d517bd-cd6b-4f76-b5e2-a78e4a7bbd6c______2026-07-28_142652.png",
+      "category": "视觉传播"
+    }
+  ],
+  "timelineItems": [
+    {
+      "year": "Create",
+      "title": "建立游光 Studio",
+      "description": "个人品牌与创作方法论正式确立，开启AI视觉创作者之路",
+      "keyword": ""
+    },
+    {
+      "year": "Motion",
+      "title": "打造 VisionLoop",
+      "description": "探索AI时代动态视觉创作的新范式，重新定义运动影像",
+      "keyword": ""
+    },
+    {
+      "year": "Still",
+      "title": "构建 PhotoLoop",
+      "description": "AI辅助静态视觉创作工具上线，让技术服务於观察",
+      "keyword": ""
+    },
+    {
+      "year": "Culture",
+      "title": "创建山海风物志",
+      "description": "文旅视觉传播项目启动，用数字影像讲述山川故事",
+      "keyword": ""
+    },
+    {
+      "year": "Grow",
+      "title": "开发觅光摄影助手",
+      "description": "AI摄影知识与学习系统诞生，创作者成长路径体系化",
+      "keyword": ""
+    },
+    {
+      "year": "Explore",
+      "title": "深入AI视觉创作",
+      "description": "系统性地将AI融入视觉创作全流程，建立人机协作方法论",
+      "keyword": ""
+    }
+  ],
+  "creativeAbilities": [
+    "Photography",
+    "Cinematography",
+    "AI Creation",
+    "Product Design",
+    "Storytelling"
+  ],
+  "contactInfo": {
+    "title": "Let's Create Together",
+    "collaborations": [
+      {
+        "label": "商业摄影",
+        "description": "品牌视觉、产品摄影、空间影像"
+      },
+      {
+        "label": "视觉内容制作",
+        "description": "短片、动态视觉、创意策划"
+      },
+      {
+        "label": "AI创意项目",
+        "description": "AI辅助创作、工具开发、工作流设计"
+      },
+      {
+        "label": "文旅传播",
+        "description": "地域文化视觉化、旅游内容创作"
+      }
+    ]
+  },
+  "heroBg": "/hero-bg.jpg",
+  "showreelUrl": ""
+}
