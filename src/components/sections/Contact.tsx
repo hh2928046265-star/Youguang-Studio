@@ -2,6 +2,7 @@
 
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useContent } from "@/lib/content-context";
+import ContactGlowButton from "@/components/effects/ContactGlowButton";
 
 export default function Contact() {
   const { content } = useContent();

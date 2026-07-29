@@ -9,6 +9,8 @@ import { useImageUrl, useVideoUrl } from "@/lib/use-file-url";
 import TiltCard from "@/components/effects/TiltCard";
 import SplitText from "@/components/effects/SplitText";
 import ParallaxReveal from "@/components/effects/ParallaxReveal";
+import BigNumber from "@/components/effects/BigNumber";
+import GhostButton from "@/components/effects/GhostButton";
 
 const TOTAL_CARDS = 5;
 const SCALE_STEP = 0.03;
@@ -57,10 +59,11 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
     offset: ["start start", "end start"],
   });
 
+  const targetScale = 1 - (total - 1 - index) * SCALE_STEP;
   const scale = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    [1, 1, 1 - (total - index) * SCALE_STEP]
+    [1, 1, targetScale]
   );
 
   const opacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0.3]);
@@ -81,9 +84,7 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
       >
         {/* 编号 */}
         <div className="absolute top-8 left-8 z-10">
-          <span className="font-serif text-[10vw] md:text-[8vw] text-gold/15 leading-none select-none">
-            {String(index + 1).padStart(2, "0")}
-          </span>
+          <BigNumber number={String(index + 1).padStart(2, "0")} />
         </div>
 
         {/* 内容区 */}
@@ -95,9 +96,10 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
           </div>
           <SplitText text={project.name} className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[0.9] tracking-tight mb-4 gold-shimmer" />
           <SplitText text={project.subtitle} className="text-lg md:text-xl text-stone font-serif italic mb-8" delay={0.3} />
-          <p className="text-sm md:text-base text-stone-light leading-relaxed font-light max-w-xl">
+          <p className="text-sm md:text-base text-stone-light leading-relaxed font-light max-w-xl mb-6">
             {project.description}
           </p>
+          <GhostButton label="View Project" href={"#project-" + (index + 1)} />
 
           {/* 媒体展示 */}
           <div className="mt-10">
