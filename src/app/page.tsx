@@ -5,7 +5,7 @@ import {
   LineDraw,
 } from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
-import Galaxy from "@/components/effects/Galaxy";
+import ResponsiveGalaxy from "@/components/effects/ResponsiveGalaxy";
 import {
   Hero,
   About,
@@ -21,18 +21,7 @@ export default function Home() {
   return (
     <>
       <div className="fixed inset-0 z-0">
-        <Galaxy
-          hueShift={0}
-          saturation={0}
-          glowIntensity={1.5}
-          density={1.0}
-          mouseRepulsion={true}
-          mouseInteraction={true}
-          twinkleIntensity={0.4}
-          repulsionStrength={1.5}
-          speed={0.6}
-          transparent={true}
-        />
+        <ResponsiveGalaxy />
       </div>
       <VignetteOverlay />
       <Navigation />
