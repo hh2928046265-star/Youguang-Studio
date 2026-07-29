@@ -63,12 +63,13 @@ export default function Hero() {
         </motion.p>
 
         <motion.p
-          className="hidden sm:block text-sm md:text-base text-stone font-light tracking-[0.15em] max-w-md"
+          className="text-[11px] sm:text-sm md:text-base text-stone font-light tracking-[0.15em] max-w-[260px] sm:max-w-md mt-4 sm:mt-0 mb-4 sm:mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          {siteConfig.fullName} · {siteConfig.tagline}
+          <span className="sm:hidden">乘物以游心 · 观光见万象</span>
+          <span className="hidden sm:inline">{siteConfig.fullName} · {siteConfig.tagline}</span>
         </motion.p>
       </div>
 

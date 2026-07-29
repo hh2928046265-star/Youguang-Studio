@@ -7,6 +7,7 @@ import CursorGlow from "@/components/effects/CursorGlow";
 import GrainOverlay from "@/components/effects/GrainOverlay";
 import ScrollProgress from "@/components/effects/ScrollProgress";
 import LenisScroll from "@/components/effects/LenisScroll";
+import { DesktopOnly } from "@/components/effects/MobileGuard";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -52,8 +53,8 @@ export default function RootLayout({
         <Providers>
           <LenisScroll>
             <SplashScreen />
-            <CursorGlow />
-            <GrainOverlay />
+            <DesktopOnly><CursorGlow /></DesktopOnly>
+            <DesktopOnly><GrainOverlay /></DesktopOnly>
             <ScrollProgress />
             {children}
           </LenisScroll>

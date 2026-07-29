@@ -2,32 +2,19 @@
 
 import { useState, useEffect } from "react";
 import Galaxy from "./Galaxy";
+import { useIsMobile } from "./MobileGuard";
 
 export default function ResponsiveGalaxy() {
-  const [density, setDensity] = useState(1.0);
-  const [glowIntensity, setGlowIntensity] = useState(1.5);
+  const isMobile = useIsMobile();
 
-  useEffect(() => {
-    const update = () => {
-      if (window.innerWidth < 768) {
-        setDensity(0.5);
-        setGlowIntensity(1.0);
-      } else {
-        setDensity(1.0);
-        setGlowIntensity(1.5);
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+  if (isMobile) return null;
 
   return (
     <Galaxy
       hueShift={0}
       saturation={0}
-      glowIntensity={glowIntensity}
-      density={density}
+      glowIntensity={1.5}
+      density={1.0}
       mouseRepulsion={true}
       mouseInteraction={true}
       twinkleIntensity={0.4}
