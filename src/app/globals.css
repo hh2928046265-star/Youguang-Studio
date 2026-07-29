@@ -23,8 +23,10 @@
 }
 
 @keyframes breathe {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%, 100% { background-position: 0% 50%; background-color: #0A0A0A; }
+  25% { background-color: #0C0B0A; }
+  50% { background-position: 100% 50%; background-color: #0B0B09; }
+  75% { background-color: #0C0B09; }
 }
 
 @layer base {
@@ -47,7 +49,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(185,154,91,0.008) 2px, rgba(185,154,91,0.008) 3px);
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(185,154,91,0.006) 2px, rgba(185,154,91,0.006) 3px);
 }
 
 .gallery-frame {
@@ -60,26 +62,22 @@
 .film-border { position: relative; border: 2px solid #1a1a1a; padding: 0; }
 .film-border::before, .film-border::after {
   content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 6px;
+  position: absolute; left: 0; right: 0; height: 6px;
   background: repeating-linear-gradient(90deg, #1a1a1a 0px, #1a1a1a 16px, transparent 16px, transparent 20px);
 }
 .film-border::before { top: -8px; }
 .film-border::after { bottom: -8px; }
 
 .gold-rule {
-  width: 60px;
-  height: 1px;
+  width: 60px; height: 1px;
   background: linear-gradient(90deg, transparent, #B99A5B, transparent);
   margin: 0 auto;
 }
 
 .bg-breathe {
-  background: linear-gradient(135deg, #0A0A0A 0%, #111 30%, #0D0D0D 50%, #111 70%, #0A0A0A 100%);
+  background: linear-gradient(135deg, #0A0A0A 0%, #0D0C0A 25%, #0B0A08 50%, #0E0D0A 75%, #0A0A0A 100%);
   background-size: 400% 400%;
-  animation: breathe 10s ease-in-out infinite;
+  animation: breathe 14s ease-in-out infinite;
 }
 
 .gold-shimmer {
