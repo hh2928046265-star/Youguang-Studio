@@ -7,7 +7,6 @@ import SectionDivider from "@/components/ui/SectionDivider";
 import { useContent } from "@/lib/content-context";
 import { useImageUrl, useVideoUrl } from "@/lib/use-file-url";
 import TiltCard from "@/components/effects/TiltCard";
-import SplitText from "@/components/effects/SplitText";
 import ParallaxReveal from "@/components/effects/ParallaxReveal";
 import BigNumber from "@/components/effects/BigNumber";
 import GhostButton from "@/components/effects/GhostButton";
@@ -89,8 +88,12 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
               {project.number} · {project.category}
             </span>
           </div>
-          <SplitText text={project.name} className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[0.9] tracking-tight mb-4 gold-shimmer" />
-          <SplitText text={project.subtitle} className="text-lg md:text-xl text-stone font-serif italic mb-8" delay={0.3} />
+          <h3 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[0.9] tracking-tight mb-4 gold-heading">
+            {project.name}
+          </h3>
+          <p className="text-lg md:text-xl text-stone font-serif italic mb-8">
+            {project.subtitle}
+          </p>
           <p className="text-sm md:text-base text-stone-light leading-relaxed font-light max-w-xl mb-6">
             {project.description}
           </p>
@@ -149,7 +152,7 @@ export default function ProjectDetail() {
               <p className="text-xs tracking-[0.3em] uppercase text-stone-light mb-4">
                 Featured Works
               </p>
-              <h2 className="font-serif text-5xl md:text-7xl text-ink tracking-tight gold-shimmer">
+              <h2 className="font-serif text-5xl md:text-7xl text-ink tracking-tight gold-heading">
                 作品集
               </h2>
             </div>
