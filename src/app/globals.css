@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
   --color-ivory: #0A0A0A;
@@ -12,26 +12,35 @@
   --color-gold: #B99A5B;
   --color-gold-light: #D4B978;
   --color-sand: #1A1A1C;
-
   --font-serif: var(--font-serif), ui-serif, Georgia, serif;
   --font-serif-sc: var(--font-serif-sc), "STSong", "SimSun", serif;
   --font-sans: var(--font-sans), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
 }
 
-@layer base {
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #B99A5B transparent;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  .custom-cursor,body.custom-cursor *{cursor:none!important;}.hover-zoom{overflow:hidden;}.hover-zoom img{transition:transform 1.2s cubic-bezier(0.25,0.1,0.25,1);}.hover-zoom:hover img{transform:scale(1.03);}/* 纸张纹理 — 高级摄影画册触感 */
-.paper-texture {
-  position: relative;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
+
+@keyframes breathe {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@layer base {
+  * { scrollbar-width: thin; scrollbar-color: #B99A5B transparent; }
+  html { scroll-behavior: smooth; }
+  body { background-color: #0A0A0A; color: var(--color-ink); }
+  ::selection { background-color: rgba(184, 153, 91, 0.25); }
+}
+
+.custom-cursor, body.custom-cursor * { cursor: none !important; }
+
+.hover-zoom { overflow: hidden; }
+.hover-zoom img { transition: transform 1.2s cubic-bezier(0.25,0.1,0.25,1); }
+.hover-zoom:hover img { transform: scale(1.03); }
+
+.paper-texture { position: relative; }
 .paper-texture::after {
   content: '';
   position: absolute;
@@ -41,7 +50,6 @@
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(185,154,91,0.008) 2px, rgba(185,154,91,0.008) 3px);
 }
 
-/* 装裱画框感 — 像挂在白墙上的摄影作品 */
 .gallery-frame {
   padding: 8px;
   background: #1A1A1A;
@@ -49,14 +57,8 @@
   border: 1px solid rgba(185,154,91,0.15);
 }
 
-/* 35mm 底片边框 */
-.film-border {
-  position: relative;
-  border: 2px solid #1a1a1a;
-  padding: 0;
-}
-.film-border::before,
-.film-border::after {
+.film-border { position: relative; border: 2px solid #1a1a1a; padding: 0; }
+.film-border::before, .film-border::after {
   content: '';
   position: absolute;
   left: 0;
@@ -67,42 +69,57 @@
 .film-border::before { top: -8px; }
 .film-border::after { bottom: -8px; }
 
-/* 镀金细线分割 */
 .gold-rule {
   width: 60px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #B99A5B, transparent);
   margin: 0 auto;
 }
-@keyframes breathe{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}.bg-breathe{background:linear-gradient(135deg,#0A0A0A 0%,#111 30%,#0D0D0D 50%,#111 70%,#0A0A0A 100%);background-size:400% 400%;animation:breathe 10s ease-in-out infinite}.gold-shimmer{background:linear-gradient(90deg,#E8E4DD 0%,#B99A5B 30%,#D4B978 50%,#B99A5B 70%,#E8E4DD 100%);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-position:-200% 0;transition:background-position 0.8s ease-out}.gold-shimmer:hover{background-position:200% 0}
+
+.bg-breathe {
+  background: linear-gradient(135deg, #0A0A0A 0%, #111 30%, #0D0D0D 50%, #111 70%, #0A0A0A 100%);
+  background-size: 400% 400%;
+  animation: breathe 10s ease-in-out infinite;
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, #E8E4DD 0%, #B99A5B 30%, #D4B978 50%, #B99A5B 70%, #E8E4DD 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-position: -200% 0;
+  transition: background-position 0.8s ease-out;
+}
+.gold-shimmer:hover { background-position: 200% 0; }
+
 .hero-heading {
   background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
 .gold-heading {
   background: linear-gradient(180deg, #B99A5B 0%, #E8D5A3 40%, #D4B978 60%, #8B7340 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}.text-mask-image{-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:cover;background-position:center}.ripple-container{position:fixed;inset:0;pointer-events:none;z-index:9998}body {
-    background-color: #0A0A0A;
-    color: var(--color-ink);
-  }
+}
 
-  ::selection {
-    background-color: rgba(184, 153, 91, 0.25);
-  }
+.text-mask-image {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: cover;
+  background-position: center;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .section-spacing {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
-  }
+  .text-balance { text-wrap: balance; }
+  .section-spacing { padding-top: 12rem; padding-bottom: 12rem; }
 }

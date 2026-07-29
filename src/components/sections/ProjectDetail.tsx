@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import SectionDivider from "@/components/ui/SectionDivider";
@@ -11,6 +11,7 @@ import SplitText from "@/components/effects/SplitText";
 import ParallaxReveal from "@/components/effects/ParallaxReveal";
 import BigNumber from "@/components/effects/BigNumber";
 import GhostButton from "@/components/effects/GhostButton";
+import { ShineSweep, ImageZoom, DynamicLight, BorderGlow } from "@/components/effects/InteractiveEffects";
 
 const TOTAL_CARDS = 5;
 const SCALE_STEP = 0.03;
@@ -60,38 +61,32 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
   });
 
   const targetScale = 1 - (total - 1 - index) * SCALE_STEP;
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [1, 1, targetScale]
-  );
-
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, targetScale]);
   const opacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0.3]);
-
   const borderRadius = useTransform(scrollYProgress, [0, 0.5], [40, 60]);
+  const topOffset = index * 28;
 
   return (
     <div ref={containerRef} className="h-[85vh] sticky top-24 md:top-32 flex items-center justify-center">
+      <BorderGlow>
       <motion.div
         className="relative w-full max-w-5xl mx-auto overflow-hidden border border-gold/20 bg-[#0C0C0C]"
         style={{
           scale,
           opacity,
           borderRadius,
-          top: `${index * 28}px`,
+          top: topOffset + "px",
           willChange: "transform",
         }}
       >
-        {/* 编号 */}
         <div className="absolute top-8 left-8 z-10">
           <BigNumber number={String(index + 1).padStart(2, "0")} />
         </div>
 
-        {/* 内容区 */}
         <div className="relative z-10 p-8 md:p-12 pt-20 md:pt-24">
           <div className="flex items-center gap-4 mb-6">
             <span className="text-xs tracking-[0.3em] uppercase text-stone-light">
-              {project.number} 路 • {project.category}
+              {project.number} · {project.category}
             </span>
           </div>
           <SplitText text={project.name} className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[0.9] tracking-tight mb-4 gold-shimmer" />
@@ -101,14 +96,20 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
           </p>
           <GhostButton label="View Project" href={"#project-" + (index + 1)} />
 
-          {/* 媒体展示 */}
           <div className="mt-10">
             <ParallaxReveal>
+            <DynamicLight>
             {videoUrl && videoUrl.startsWith("data:") ? (
+              <ShineSweep>
+              <ImageZoom>
               <TiltCard className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-black" maxTilt={5}>
                 <VideoPlayer src={videoUrl} poster={imageUrl} />
               </TiltCard>
+              </ImageZoom>
+              </ShineSweep>
             ) : (
+              <ShineSweep>
+              <ImageZoom>
               <TiltCard className="relative aspect-[16/9] rounded-[28px] overflow-hidden bg-[#111]" maxTilt={5}>
                 {imageUrl && (
                   <img
@@ -119,14 +120,17 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
                   />
                 )}
               </TiltCard>
+              </ImageZoom>
+              </ShineSweep>
             )}
+            </DynamicLight>
           </ParallaxReveal>
           </div>
         </div>
 
-        {/* 底部渐变过渡 */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0C0C0C] to-transparent pointer-events-none z-[2]" />
       </motion.div>
+      </BorderGlow>
     </div>
   );
 }

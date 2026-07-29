@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond, Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers/Providers";
-import { SplashScreen, Cursor, ClickRipple } from "@/components/ui";
+import SplashScreen from "@/components/ui/SplashScreen";
 import CursorGlow from "@/components/effects/CursorGlow";
 import GrainOverlay from "@/components/effects/GrainOverlay";
 import ScrollProgress from "@/components/effects/ScrollProgress";
-import GoldParticles from "@/components/effects/GoldParticles";
+import LenisScroll from "@/components/effects/LenisScroll";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -46,18 +46,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN" className="scroll-smooth">
+    <html lang="zh-CN">
       <body
-        className={`${inter.variable} ${cormorantGaramond.variable} ${notoSerifSC.variable} min-h-screen bg-ivory bg-breathe text-ink antialiased`}
+        className={inter.variable + " " + cormorantGaramond.variable + " " + notoSerifSC.variable + " min-h-screen bg-ivory bg-breathe text-ink antialiased"}
       >
         <Providers>
-          <SplashScreen />
-          <Cursor />
-          <CursorGlow />
-          <GrainOverlay />
-          <ScrollProgress />
-          <ClickRipple />
-          {children}
+          <LenisScroll>
+            <SplashScreen />
+            <CursorGlow />
+            <GrainOverlay />
+            <ScrollProgress />
+            {children}
+          </LenisScroll>
         </Providers>
       </body>
     </html>

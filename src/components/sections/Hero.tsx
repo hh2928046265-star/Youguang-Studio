@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useContent } from "@/lib/content-context";
 import { useVideoUrl, useImageUrl } from "@/lib/use-file-url";
 import CountUp from "@/components/effects/CountUp";
+import { Parallax3D, FloatAnimation } from "@/components/effects/AdvancedEffects";
 
 export default function Hero() {
   const { content } = useContent();
@@ -22,10 +23,12 @@ export default function Hero() {
           src={heroVideoUrl}
         />
       ) : (
-        <div
-          className="absolute inset-0 bg-cover bg-center scale-105"
-          style={heroImage ? { backgroundImage: "url('" + heroImage + "')" } : {}}
-        />
+        <Parallax3D speed={0.03}>
+          <div
+            className="absolute inset-0 bg-cover bg-center scale-110"
+            style={heroImage ? { backgroundImage: "url('" + heroImage + "')" } : {}}
+          />
+        </Parallax3D>
       )}
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/90 z-[1]" />
@@ -68,35 +71,41 @@ export default function Hero() {
         </motion.p>
       </div>
 
-      <motion.div
-        className="absolute right-8 md:right-16 top-[22%] z-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.5 }}
-      >
-        <CountUp target={5} prefix="+" suffix="路" className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight block" />
-        <p className="text-xs text-stone-light mt-1 text-right tracking-[0.2em] uppercase">五维创造</p>
-      </motion.div>
+      <FloatAnimation amplitude={10} period={5}>
+        <motion.div
+          className="absolute right-8 md:right-16 top-[22%] z-10"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
+        >
+          <CountUp target={5} prefix="+" suffix="路" className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight block" />
+          <p className="text-xs text-stone-light mt-1 text-right tracking-[0.2em] uppercase">五维创造</p>
+        </motion.div>
+      </FloatAnimation>
 
-      <motion.div
-        className="absolute left-8 md:left-16 bottom-28 md:bottom-32 z-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.7 }}
-      >
-        <CountUp target={5} className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight block" />
-        <p className="text-xs text-stone-light mt-1 tracking-[0.2em] uppercase">视觉项目</p>
-      </motion.div>
+      <FloatAnimation amplitude={8} period={6}>
+        <motion.div
+          className="absolute left-8 md:left-16 bottom-28 md:bottom-32 z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.7 }}
+        >
+          <CountUp target={5} className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight block" />
+          <p className="text-xs text-stone-light mt-1 tracking-[0.2em] uppercase">视觉项目</p>
+        </motion.div>
+      </FloatAnimation>
 
-      <motion.div
-        className="absolute right-8 md:right-16 bottom-28 md:bottom-32 z-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.9 }}
-      >
-        <CountUp target={2026} className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight block" />
-        <p className="text-xs text-stone-light mt-1 text-right tracking-[0.2em] uppercase">起航</p>
-      </motion.div>
+      <FloatAnimation amplitude={9} period={4.5}>
+        <motion.div
+          className="absolute right-8 md:right-16 bottom-28 md:bottom-32 z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.9 }}
+        >
+          <CountUp target={2026} className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight block" />
+          <p className="text-xs text-stone-light mt-1 text-right tracking-[0.2em] uppercase">起航</p>
+        </motion.div>
+      </FloatAnimation>
 
       <motion.a
         href="#about"

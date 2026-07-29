@@ -3,13 +3,10 @@ import {
   VignetteOverlay,
   ParallaxWrapper,
   LineDraw,
-  SplashScreen,
 } from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
-import GoldParticles from "@/components/effects/GoldParticles";
-import CursorGlow from "@/components/effects/CursorGlow";
-import GrainOverlay from "@/components/effects/GrainOverlay";
-import ScrollProgress from "@/components/effects/ScrollProgress";
+import CanvasAmbiance from "@/components/effects/CanvasAmbiance";
+import { ScrollBgGradient, ScrollBgScript } from "@/components/effects/AdvancedEffects";
 import {
   Hero,
   About,
@@ -24,11 +21,9 @@ import {
 export default function Home() {
   return (
     <>
-      <SplashScreen />
-      <CursorGlow />
-      <GrainOverlay />
-      <GoldParticles />
-      <ScrollProgress />
+      <CanvasAmbiance />
+      <ScrollBgGradient />
+      <ScrollBgScript />
       <VignetteOverlay />
       <Navigation />
       <main>
