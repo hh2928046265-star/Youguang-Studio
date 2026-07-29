@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ivory: #F5F1E8;
-  --color-ivory-light: #FAF7F2;
-  --color-ink: #151515;
-  --color-ink-light: #2A2A2A;
-  --color-stone: #66635D;
-  --color-stone-light: #8C8982;
+  --color-ivory: #0A0A0A;
+  --color-ivory-light: #111111;
+  --color-ink: #E8E4DD;
+  --color-ink-light: #F0EDE8;
+  --color-stone: #8C887E;
+  --color-stone-light: #6B6760;
   --color-nature: #788B72;
   --color-nature-light: #9AAD94;
   --color-gold: #B99A5B;
   --color-gold-light: #D4B978;
-  --color-sand: #E8E3D8;
+  --color-sand: #1A1A1C;
 
   --font-serif: var(--font-serif), ui-serif, Georgia, serif;
   --font-serif-sc: var(--font-serif-sc), "STSong", "SimSun", serif;
@@ -21,7 +21,7 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: #66635D transparent;
+    scrollbar-color: #B99A5B transparent;
   }
 
   html {
@@ -44,9 +44,9 @@
 /* 装裱画框感 — 像挂在白墙上的摄影作品 */
 .gallery-frame {
   padding: 8px;
-  background: #fff;
+  background: #1A1A1A;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 8px 30px rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(185,154,91,0.15);
 }
 
 /* 35mm 底片边框 */
@@ -74,8 +74,20 @@
   background: linear-gradient(90deg, transparent, #B99A5B, transparent);
   margin: 0 auto;
 }
-@keyframes breathe{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}.bg-breathe{background:linear-gradient(135deg,#F5F1E8 0%,#F0E9D8 30%,#F5F2EB 50%,#EFE8D5 70%,#F5F1E8 100%);background-size:400% 400%;animation:breathe 10s ease-in-out infinite}.gold-shimmer{background:linear-gradient(90deg,#151515 0%,#B99A5B 35%,#D4B978 50%,#B99A5B 65%,#151515 100%);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-position:-200% 0;transition:background-position 0.8s ease-out}.gold-shimmer:hover{background-position:200% 0}.text-mask-image{-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:cover;background-position:center}.ripple-container{position:fixed;inset:0;pointer-events:none;z-index:9998}body {
-    background-color: var(--color-ivory);
+@keyframes breathe{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}.bg-breathe{background:linear-gradient(135deg,#0A0A0A 0%,#111 30%,#0D0D0D 50%,#111 70%,#0A0A0A 100%);background-size:400% 400%;animation:breathe 10s ease-in-out infinite}.gold-shimmer{background:linear-gradient(90deg,#E8E4DD 0%,#B99A5B 30%,#D4B978 50%,#B99A5B 70%,#E8E4DD 100%);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-position:-200% 0;transition:background-position 0.8s ease-out}.gold-shimmer:hover{background-position:200% 0}
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gold-heading {
+  background: linear-gradient(180deg, #B99A5B 0%, #E8D5A3 40%, #D4B978 60%, #8B7340 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}.text-mask-image{-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:cover;background-position:center}.ripple-container{position:fixed;inset:0;pointer-events:none;z-index:9998}body {
+    background-color: #0A0A0A;
     color: var(--color-ink);
   }
 

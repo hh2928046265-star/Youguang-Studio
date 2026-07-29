@@ -16,9 +16,9 @@ export default function Navigation() {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 px-8 md:px-16 py-6 flex items-center justify-between transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 px-8 md:px-16 py-5 flex items-center justify-between transition-all duration-500 ${
         scrolled
-          ? "bg-ivory/70 backdrop-blur-xl border-b border-sand/50"
+          ? "bg-black/70 backdrop-blur-xl border-b border-gold/10"
           : "bg-transparent"
       }`}
       initial={{ y: -100 }}
@@ -33,7 +33,7 @@ export default function Navigation() {
           <a
             key={item.href}
             href={item.href}
-            className="text-sm font-light tracking-wider text-stone hover:text-ink transition-colors duration-300"
+            className="text-sm font-light tracking-wider text-stone hover:text-gold transition-colors duration-300"
           >
             {item.label}
           </a>

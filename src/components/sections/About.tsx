@@ -1,10 +1,11 @@
-﻿'use client';
+'use client';
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useContent } from "@/lib/content-context";
 import { useImageUrl } from "@/lib/use-file-url";
+import { AnimatedChars } from "@/components/effects/AnimatedText";
 
 export default function About() {
   const { content } = useContent();

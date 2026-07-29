@@ -55,6 +55,7 @@ export interface SiteContent {
   creativeAbilities: string[];
   contactInfo: ContactInfoData;
   heroBg: string;
+  heroVideo: string;
   showreelUrl: string;
 }
 
@@ -72,6 +73,7 @@ export function getDefaultContent(): SiteContent {
     creativeAbilities,
     contactInfo,
     heroBg: "/hero-bg.jpg",
+    heroVideo: "",
     showreelUrl: "",
   };
 }

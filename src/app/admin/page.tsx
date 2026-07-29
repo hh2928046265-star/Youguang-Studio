@@ -383,6 +383,8 @@ function MediaManager({ onClose }: { onClose: () => void }) {
 
         if (slot.contentKey === "heroBg") {
           updateContent({ heroBg: fileId });
+        } else if (slot.contentKey === "heroVideo") {
+          updateContent({ heroVideo: fileId });
         } else if (
           slot.contentKey === "aboutContent" && slot.nestedKey
         ) {
@@ -469,6 +471,8 @@ function MediaManager({ onClose }: { onClose: () => void }) {
           const currentPath =
             slot.contentKey === "heroBg"
               ? content.heroBg
+              : slot.contentKey === "heroVideo"
+              ? content.heroVideo || ""
               : slot.contentKey === "aboutContent"
               ? content.aboutContent.image
               : content.projects.find((p) => p.id === slot.id)?.image || "";

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { useContent } from "@/lib/content-context";
+import Magnet from "@/components/effects/Magnet";
 
 export default function FiveDimensions() {
   const { content } = useContent();
@@ -83,7 +84,7 @@ export default function FiveDimensions() {
               <motion.a
                 key={node.id}
                 href={node.href}
-                className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2 group"
+                className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2"
                 style={{
                   left: `${node.x}%`,
                   top: `${node.y}%`,

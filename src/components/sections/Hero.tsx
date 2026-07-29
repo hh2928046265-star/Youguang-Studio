@@ -1,94 +1,72 @@
-﻿"use client";
+"use client";
 
-import { useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useContent } from "@/lib/content-context";
-import { useImageUrl } from "@/lib/use-file-url";
+import { useVideoUrl, useImageUrl } from "@/lib/use-file-url";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   const { content } = useContent();
-  const { siteConfig, heroBg: heroBgRaw } = content;
-  const heroBg = useImageUrl(heroBgRaw);
+  const { siteConfig, heroBg: heroBgRaw, heroVideo } = content;
+  const heroImage = useImageUrl(heroBgRaw);
+  const heroVideoUrl = useVideoUrl(heroVideo || "");
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 40, damping: 30 });
-  const springY = useSpring(mouseY, { stiffness: 40, damping: 30 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 24;
-    const y = (e.clientY / window.innerHeight - 0.5) * 24;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
+  // 检测是否为真实视频 URL（非 IndexedDB id）
+  const hasVideo = heroVideoUrl && heroVideoUrl.startsWith("data:") === false;
 
   return (
-    <section
-      className="relative h-screen w-full overflow-hidden hero-reflection"
-      onMouseMove={handleMouseMove}
-    >
-      {/* Premium Gallery Atmosphere Background */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{ x: springX, y: springY, scale: 1.1 }}
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1.1 }}
-        transition={{ duration: 8, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        {/* Base: deep warm black */}
-        <div className="absolute inset-0 bg-[#1a1815]" />
-
-        {/* Custom image overlay if exists */}
-        {heroBg && (
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay"
-            style={{ backgroundImage: `url('${heroBg}')` }}
-          />
-        )}
-
-        {/* Radial glow — gallery spotlight */}
+    <section className="relative h-screen w-full overflow-hidden bg-black">
+      {/* 背景视频 */}
+      {hasVideo ? (
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          src={heroVideoUrl}
+        />
+      ) : heroImage ? (
         <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(185,154,91,0.12) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 50% 45%, rgba(232,227,216,0.06) 0%, transparent 50%)",
-          }}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${heroImage}')` }}
         />
+      ) : (
+        <div className="absolute inset-0 bg-black" />
+      )}
 
-        {/* Subtle geometric lines — gallery architecture */}
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: "linear-gradient(rgba(185,154,91,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(185,154,91,0.5) 1px, transparent 1px)",
-            backgroundSize: "120px 120px",
-          }}
-        />
+      {/* 暗色叠加 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-[1]" />
 
-        {/* Top vignette fade */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1815] via-transparent to-[#1a1815]/80" />
+      {/* 金色粒子纹理 */}
+      <div
+        className="absolute inset-0 z-[2] opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 30% 40%, #B99A5B 1px, transparent 1px), radial-gradient(circle at 70% 60%, #D4B978 1px, transparent 1px)",
+          backgroundSize: "80px 80px, 120px 120px",
+        }}
+      />
 
-        {/* Bottom mirror reflection gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ivory/40 via-ivory/10 to-transparent z-[6]" />
-      </motion.div>
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-8">
+      {/* 文字内容 */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
         <motion.div
-          className="overflow-hidden mb-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
           <motion.h1
-            className="font-serif text-6xl sm:text-7xl md:text-9xl lg:text-[160px] text-ivory tracking-tight leading-none"
-            initial={{ y: 80, opacity: 0 }}
+            className="font-serif text-7xl sm:text-8xl md:text-[10rem] lg:text-[12rem] tracking-tight leading-[0.85] mb-4 gold-shimmer"
+            style={{ fontWeight: 300 }}
+            initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 1.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {siteConfig.name}
           </motion.h1>
         </motion.div>
 
         <motion.p
-          className="text-sm sm:text-base md:text-lg text-ivory/80 font-light tracking-[0.3em] uppercase mb-3"
+          className="text-sm md:text-base text-stone font-light tracking-[0.3em] uppercase mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.0 }}
@@ -97,7 +75,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.p
-          className="text-xs sm:text-sm text-ivory/60 font-light tracking-[0.2em]"
+          className="text-xs md:text-sm text-stone-light font-light tracking-[0.2em]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
@@ -105,12 +83,13 @@ export default function Hero() {
           {siteConfig.tagline}
         </motion.p>
 
+        {/* 底部滚动提示 */}
         <motion.a
           href="#about"
-          className="absolute bottom-12 flex items-center gap-3 text-ivory/70 hover:text-ivory transition-colors duration-500 group"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.8 }}
+          className="absolute bottom-10 flex items-center gap-3 text-gold/60 hover:text-gold transition-colors duration-500 group"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 2.0 }}
         >
           <span className="text-sm font-light tracking-[0.2em]">Explore Works</span>
           <motion.span
@@ -122,6 +101,9 @@ export default function Hero() {
           </motion.span>
         </motion.a>
       </div>
+
+      {/* 底部渐变 */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-black z-[3]" />
     </section>
   );
 }
