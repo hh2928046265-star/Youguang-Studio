@@ -30,10 +30,6 @@ export default function Home() {
         <LineDraw />
         <ProjectDetail />
         <LineDraw />
-        <CenterProximity>
-          <VideoShowcase />
-        </CenterProximity>
-        <LineDraw />
         <CreativeAbility />
         <LineDraw />
         <Timeline />
