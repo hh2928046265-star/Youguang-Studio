@@ -143,25 +143,29 @@ export default function ProjectDetail() {
     <div className="bg-[#0A0A0A]">
       <SectionDivider />
       <div className="relative pb-20">
-        <ScrollReveal>
-          <div className="text-center pt-20 pb-10">
-            <p className="text-xs tracking-[0.3em] uppercase text-stone-light mb-4">
-              Featured Works
-            </p>
-            <h2 className="font-serif text-5xl md:text-7xl text-ink tracking-tight gold-shimmer">
-              作品集
-            </h2>
-          </div>
-        </ScrollReveal>
+        <div className="relative z-20">
+          <ScrollReveal>
+            <div className="text-center pt-20 pb-16">
+              <p className="text-xs tracking-[0.3em] uppercase text-stone-light mb-4">
+                Featured Works
+              </p>
+              <h2 className="font-serif text-5xl md:text-7xl text-ink tracking-tight gold-shimmer">
+                作品集
+              </h2>
+            </div>
+          </ScrollReveal>
+        </div>
 
-        {projects.map((project, index) => (
-          <StackedCard
-            key={project.id}
-            project={project}
-            index={index}
-            total={projects.length}
-          />
-        ))}
+        <div className="relative z-0">
+          {projects.map((project, index) => (
+            <StackedCard
+              key={project.id}
+              project={project}
+              index={index}
+              total={projects.length}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
