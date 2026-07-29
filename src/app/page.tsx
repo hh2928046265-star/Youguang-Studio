@@ -5,6 +5,7 @@ import {
   LineDraw,
 } from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
+import Galaxy from "@/components/effects/Galaxy";
 import {
   Hero,
   About,
@@ -19,6 +20,18 @@ import {
 export default function Home() {
   return (
     <>
+      <Galaxy
+        hueShift={45}
+        saturation={0.25}
+        glowIntensity={0.5}
+        density={0.7}
+        mouseRepulsion={true}
+        mouseInteraction={true}
+        twinkleIntensity={0.4}
+        repulsionStrength={1.5}
+        transparent={true}
+        className="fixed inset-0 z-0"
+      />
       <VignetteOverlay />
       <Navigation />
       <main>
