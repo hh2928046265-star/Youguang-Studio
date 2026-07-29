@@ -14,18 +14,21 @@ export default function SplitText({ text, className = "", delay = 0 }: SplitText
   const inView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <div ref={ref} className={"overflow-hidden " + className}>
+    <div ref={ref} className={className}>
+      <span className="sr-only">{text}</span>
       {text.split("").map((char, i) => (
         <motion.span
           key={i}
           className="inline-block"
-          initial={{ y: 80, opacity: 0, rotateX: -40 }}
-          animate={inView ? { y: 0, opacity: 1, rotateX: 0 } : {}}
+          aria-hidden="true"
+          initial={{ opacity: 0, filter: "blur(4px)" }}
+          animate={inView ? { opacity: 1, filter: "blur(0px)" } : {}}
           transition={{
-            duration: 0.6,
+            duration: 0.4,
             delay: delay + i * 0.03,
-            ease: [0.25, 0.1, 0.25, 1],
+            ease: "easeOut",
           }}
+          style={{ whiteSpace: char === " " ? "pre" : "normal" }}
         >
           {char === " " ? "\u00A0" : char}
         </motion.span>

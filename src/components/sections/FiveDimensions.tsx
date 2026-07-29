@@ -45,28 +45,28 @@ export default function FiveDimensions() {
           </motion.h2>
         </div>
 
-        <div ref={containerRef} className="relative w-full" style={{ paddingBottom: "75%" }}>
+        <div ref={containerRef} className="relative w-full" style={{ paddingBottom: "70%" }}>
           <div className="absolute inset-0">
-            {/* 连接线 */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            {/* 连接线 — 最低层 */}
+            <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
               {dimensionNodes.map((node) => (
                 <motion.line
                   key={"line-" + node.id}
                   x1={centerX} y1={centerY}
                   x2={node.x} y2={node.y}
                   stroke="#B99A5B"
-                  strokeWidth="0.4"
+                  strokeWidth="0.3"
                   initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 0.5 }}
+                  whileInView={{ pathLength: 1, opacity: 0.35 }}
                   viewport={{ once: true }}
                   transition={{ duration: 2, delay: 0.3, ease: "easeInOut" }}
                 />
               ))}
             </svg>
 
-            {/* 中心节点 */}
+            {/* 中心节点 — z-20 */}
             <motion.div
-              className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2"
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 z-20"
               style={{ left: centerX + "%", top: centerY + "%" }}
               initial={{ scale: 0, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -78,14 +78,14 @@ export default function FiveDimensions() {
               </div>
             </motion.div>
 
-            {/* 卫星节点 — 固定位置，hover 微动 */}
+            {/* 卫星节点 — z-10，加背景遮挡线 */}
             {dimensionNodes.map((node, index) => {
               const color = nodeColors[index] || "#D4B978";
               return (
                 <motion.a
                   key={node.id}
                   href={node.href}
-                  className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+                  className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10"
                   style={{ left: node.x + "%", top: node.y + "%" }}
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
@@ -102,7 +102,7 @@ export default function FiveDimensions() {
                   <div
                     className="relative px-5 py-3 md:px-6 md:py-4 rounded-2xl border transition-all duration-500"
                     style={{
-                      backgroundColor: hoveredNode === node.id ? color + "20" : "transparent",
+                      backgroundColor: "#0A0A0A",
                       borderColor: color,
                       borderWidth: "1px",
                     }}
