@@ -6,6 +6,7 @@ import SplashScreen from "@/components/ui/SplashScreen";
 import CursorGlow from "@/components/effects/CursorGlow";
 import GrainOverlay from "@/components/effects/GrainOverlay";
 import ScrollProgress from "@/components/effects/ScrollProgress";
+import ContentGate from "@/components/ui/ContentGate";
 import LenisScroll from "@/components/effects/LenisScroll";
 
 const inter = Inter({
@@ -55,7 +56,7 @@ export default function RootLayout({
             <CursorGlow />
             <GrainOverlay />
             <ScrollProgress />
-            {children}
+            <ContentGate>{children}</ContentGate>
           </LenisScroll>
         </Providers>
       </body>
