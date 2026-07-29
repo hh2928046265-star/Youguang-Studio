@@ -34,7 +34,6 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/90 z-[1]" />
 
       <div className="relative z-10 h-full w-full flex flex-col items-center justify-center text-center px-4 sm:px-6">
-        {/* 手机端：Studio；桌面端：游光 */}
         <motion.div
           className="overflow-hidden"
           initial={{ opacity: 0 }}
@@ -48,33 +47,28 @@ export default function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            {/* 手机：Studio / 桌面：游光 */}
             <span className="text-[18vw] sm:hidden">Studio</span>
             <span className="hidden sm:inline text-[18vw] md:text-[16vw] lg:text-[14vw]">{siteConfig.name.replace("Studio", "")}</span>
           </motion.h1>
         </motion.div>
 
         <motion.p
-          className="font-serif italic text-gold tracking-wide -mt-1 sm:-mt-2 md:-mt-4"
+          className="hidden sm:block font-serif italic text-gold tracking-wide -mt-1 sm:-mt-2 md:-mt-4"
           style={{ fontWeight: 300 }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          {/* 手机：游光 Studio / 桌面：Studio */}
-          <span className="text-[8vw] sm:hidden">Zhou You</span>
-          <span className="hidden sm:inline text-[5vw] md:text-[4vw]">Studio</span>
+          <span className="text-[5vw] md:text-[4vw]">Studio</span>
         </motion.p>
 
-        {/* 手机端品牌标语 */}
         <motion.p
-          className="text-[10px] sm:text-sm md:text-base text-stone font-light tracking-[0.2em] max-w-[280px] sm:max-w-md mt-4 sm:mt-0 mb-4 sm:mb-6"
+          className="hidden sm:block text-sm md:text-base text-stone font-light tracking-[0.15em] max-w-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          <span className="sm:hidden">乘物游心 · 以光见万象</span>
-          <span className="hidden sm:inline">{siteConfig.fullName} · {siteConfig.tagline}</span>
+          {siteConfig.fullName} · {siteConfig.tagline}
         </motion.p>
       </div>
 
@@ -128,5 +122,3 @@ export default function Hero() {
     </section>
   );
 }
-
-
