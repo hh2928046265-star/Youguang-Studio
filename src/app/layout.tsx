@@ -45,11 +45,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const fontClass = inter.variable + " " + cormorantGaramond.variable + " " + notoSerifSC.variable;
   return (
     <html lang="zh-CN">
-      <body
-        className={inter.variable + " " + cormorantGaramond.variable + " " + notoSerifSC.variable + " min-h-screen bg-ivory bg-breathe text-ink antialiased"}
-      >
+      <body className={fontClass + " min-h-screen bg-ivory text-ink antialiased"}>
         <Providers>
           <LenisScroll>
             <SplashScreen />

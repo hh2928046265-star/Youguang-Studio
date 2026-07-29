@@ -5,8 +5,6 @@ import {
   LineDraw,
 } from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
-import CanvasAmbiance from "@/components/effects/CanvasAmbiance";
-import { ScrollBgGradient, ScrollBgScript } from "@/components/effects/AdvancedEffects";
 import {
   Hero,
   About,
@@ -21,9 +19,6 @@ import {
 export default function Home() {
   return (
     <>
-      <CanvasAmbiance />
-      <ScrollBgGradient />
-      <ScrollBgScript />
       <VignetteOverlay />
       <Navigation />
       <main>
