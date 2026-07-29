@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useContent } from "@/lib/content-context";
 import { useVideoUrl, useImageUrl } from "@/lib/use-file-url";
 import CountUp from "@/components/effects/CountUp";
+import { PulseDot } from "@/components/effects/ScrollEffects";
 import { Parallax3D, FloatAnimation } from "@/components/effects/AdvancedEffects";
 
 export default function Hero() {
@@ -116,7 +117,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 2.2 }}
       >
-        <span className="text-xs sm:text-sm font-light tracking-[0.25em] uppercase">↓</span>
+        <PulseDot />
       </motion.a>
 
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 sm:h-48 bg-gradient-to-b from-transparent to-black z-[2]" />
