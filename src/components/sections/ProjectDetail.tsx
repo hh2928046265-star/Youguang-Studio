@@ -97,7 +97,7 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
             {project.subtitle}
           </p>
 
-          <p className="text-xs md:text-sm lg:text-base text-stone-light leading-relaxed font-light max-w-xl mb-4 md:mb-6 line-clamp-3 md:line-clamp-none">
+          <p className="text-[10px] md:text-sm lg:text-base text-stone-light leading-relaxed font-light max-w-xl mb-4 md:mb-6 line-clamp-3 md:line-clamp-none">
             {project.description}
           </p>
 
