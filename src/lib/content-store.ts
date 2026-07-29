@@ -56,6 +56,7 @@ export interface SiteContent {
   contactInfo: ContactInfoData;
   heroBg: string;
   heroVideo: string;
+  marqueeImages: string[];
   showreelUrl: string;
 }
 
@@ -74,6 +75,7 @@ export function getDefaultContent(): SiteContent {
     contactInfo,
     heroBg: "/hero-bg.jpg",
     heroVideo: "",
+    marqueeImages: [],
     showreelUrl: "",
   };
 }

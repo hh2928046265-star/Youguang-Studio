@@ -381,7 +381,13 @@ function MediaManager({ onClose }: { onClose: () => void }) {
       try {
         const fileId = await storeFile(file);
 
-        if (slot.contentKey === "heroBg") {
+        if (slot.contentKey === "marqueeImages" && slot.nestedKey) {
+          const idx = parseInt(slot.nestedKey);
+          const images = [...(content.marqueeImages || [])];
+          while (images.length <= idx) images.push("");
+          images[idx] = fileId;
+          updateContent({ marqueeImages: images });
+        } else if (slot.contentKey === "heroBg") {
           updateContent({ heroBg: fileId });
         } else if (slot.contentKey === "heroVideo") {
           updateContent({ heroVideo: fileId });
