@@ -20,18 +20,20 @@ import {
 export default function Home() {
   return (
     <>
-      <Galaxy
-        hueShift={45}
-        saturation={0.25}
-        glowIntensity={0.5}
-        density={0.7}
-        mouseRepulsion={true}
-        mouseInteraction={true}
-        twinkleIntensity={0.4}
-        repulsionStrength={1.5}
-        transparent={true}
-        className="fixed inset-0 z-0"
-      />
+      <div className="fixed inset-0 z-0">
+        <Galaxy
+          hueShift={45}
+          saturation={0.3}
+          glowIntensity={2.0}
+          density={1.3}
+          mouseRepulsion={true}
+          mouseInteraction={true}
+          twinkleIntensity={0.5}
+          repulsionStrength={1.5}
+          speed={0.7}
+          transparent={true}
+        />
+      </div>
       <VignetteOverlay />
       <Navigation />
       <main>
