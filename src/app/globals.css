@@ -17,6 +17,12 @@
   --font-sans: var(--font-sans), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
 }
 
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(5%, -3%) scale(1.05); }
+  66% { transform: translate(-3%, 5%) scale(0.97); }
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
@@ -25,17 +31,32 @@
 @layer base {
   * { scrollbar-width: thin; scrollbar-color: #B99A5B transparent; }
   html { scroll-behavior: smooth; }
-  body { background-color: #080808; color: var(--color-ink); }
+  body {
+    background-color: #080808;
+    color: var(--color-ink);
+  }
+
+  /* 手机端轻量光晕背景 */
+  @media (max-width: 767px) {
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 40% 30%, rgba(185,154,91,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 60% 70%, rgba(185,154,91,0.04) 0%, transparent 60%);
+      animation: orb-drift 20s ease-in-out infinite;
+    }
+  }
+
   ::selection { background-color: rgba(184, 153, 91, 0.25); }
 }
 
 .galaxy-container { width: 100%; height: 100%; }
 
 .custom-cursor, body.custom-cursor * { cursor: none !important; }
-
-.hover-zoom { overflow: hidden; }
-.hover-zoom img { transition: transform 1.2s cubic-bezier(0.25,0.1,0.25,1); }
-.hover-zoom:hover img { transform: scale(1.03); }
 
 .gallery-frame {
   padding: 8px; background: #1A1A1A;
