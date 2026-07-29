@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { useState, useRef, useCallback } from "react";
@@ -945,7 +945,7 @@ function SaveButton({ onClick }: { onClick: () => void }) {
 // 将 IndexedDB 文件上传到 GitHub 并替换为路径
 // 将 IndexedDB 文件 ID 替换为压缩后的 base64 data URL
 async function embedFilesInContent(obj: any, _token: string): Promise<void> {
-  const fileIdPattern = /^[a-f0-9-]{36}____/;
+  const fileIdPattern = /^[a-f0-9-]{36}_/;
   const converted = new Map<string, string>();
 
   async function toBase64(val: string): Promise<string> {
