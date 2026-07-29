@@ -9,7 +9,6 @@ import { useImageUrl, useVideoUrl } from "@/lib/use-file-url";
 import TiltCard from "@/components/effects/TiltCard";
 import ParallaxReveal from "@/components/effects/ParallaxReveal";
 import BigNumber from "@/components/effects/BigNumber";
-import GhostButton from "@/components/effects/GhostButton";
 import { ShineSweep, ImageZoom, DynamicLight, BorderGlow } from "@/components/effects/InteractiveEffects";
 
 const TOTAL_CARDS = 5;
@@ -97,7 +96,6 @@ function StackedCard({ project, index, total }: { project: any; index: number; t
           <p className="text-sm md:text-base text-stone-light leading-relaxed font-light max-w-xl mb-6">
             {project.description}
           </p>
-          <GhostButton label="View Project" href={"#project-" + (index + 1)} />
 
           <div className="mt-10">
             <ParallaxReveal>
@@ -173,3 +171,4 @@ export default function ProjectDetail() {
     </div>
   );
 }
+
