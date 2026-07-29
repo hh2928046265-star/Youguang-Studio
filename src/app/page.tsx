@@ -5,8 +5,7 @@ import {
   LineDraw,
 } from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
-import ResponsiveGalaxy from "@/components/effects/ResponsiveGalaxy";
-import GoldParticles from "@/components/effects/GoldParticles";
+import ResponsiveGalaxy from "@/components/effects/ResponsiveGalaxy";
 import {
   Hero,
   About,
@@ -22,8 +21,7 @@ export default function Home() {
   return (
     <>
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <ResponsiveGalaxy />
-        <GoldParticles />
+        <ResponsiveGalaxy />
       </div>
       <VignetteOverlay />
       <Navigation />
