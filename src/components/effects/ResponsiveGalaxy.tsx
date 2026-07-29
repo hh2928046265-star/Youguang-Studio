@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Galaxy from "./Galaxy";
@@ -10,8 +10,8 @@ export default function ResponsiveGalaxy() {
   useEffect(() => {
     const update = () => {
       if (window.innerWidth < 768) {
-        setDensity(0.4);
-        setGlowIntensity(0.8);
+        setDensity(0.6);
+        setGlowIntensity(1.2);
       } else {
         setDensity(1.0);
         setGlowIntensity(1.5);
@@ -30,7 +30,7 @@ export default function ResponsiveGalaxy() {
       density={density}
       mouseRepulsion={false}
       mouseInteraction={false}
-      twinkleIntensity={0.2}
+      twinkleIntensity={0.3}
       repulsionStrength={0}
       speed={0.4}
       transparent={true}

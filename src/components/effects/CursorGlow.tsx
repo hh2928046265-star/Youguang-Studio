@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef } from "react";
 
@@ -14,24 +14,33 @@ export default function CursorGlow() {
     let targetY = -150;
     let currentX = -150;
     let currentY = -150;
+    const isMobile = window.innerWidth < 768;
 
-    const onMove = (e: MouseEvent) => {
-      targetX = e.clientX - 150;
-      targetY = e.clientY - 150;
+    const moveTo = (x: number, y: number) => {
+      targetX = x - 150;
+      targetY = y - 150;
+    };
+
+    const onMouseMove = (e: MouseEvent) => moveTo(e.clientX, e.clientY);
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) moveTo(t.clientX, t.clientY);
     };
 
     const animate = () => {
-      currentX += (targetX - currentX) * 0.08;
-      currentY += (targetY - currentY) * 0.08;
+      currentX += (targetX - currentX) * (isMobile ? 0.12 : 0.08);
+      currentY += (targetY - currentY) * (isMobile ? 0.12 : 0.08);
       glow.style.transform = "translate(" + currentX + "px, " + currentY + "px)";
       raf = requestAnimationFrame(animate);
     };
 
-    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
     raf = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -47,7 +56,7 @@ export default function CursorGlow() {
         style={{
           width: "300px",
           height: "300px",
-          background: "radial-gradient(ellipse at center, rgba(185,154,91,0.05) 0%, rgba(185,154,91,0.015) 40%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, rgba(185,154,91,0.06) 0%, rgba(185,154,91,0.02) 40%, transparent 70%)",
           filter: "blur(40px)",
         }}
       />
