@@ -73,7 +73,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          <span className="sm:hidden">AI时代视觉创作者个人品牌</span>
+          <span className="sm:hidden">乘物游心 · 以光见万象</span>
           <span className="hidden sm:inline">{siteConfig.fullName} · {siteConfig.tagline}</span>
         </motion.p>
       </div>
@@ -128,4 +128,5 @@ export default function Hero() {
     </section>
   );
 }
+
 
