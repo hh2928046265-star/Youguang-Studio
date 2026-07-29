@@ -62,7 +62,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         >
           {/* 手机：游光 Studio / 桌面：Studio */}
-          <span className="text-[8vw] sm:hidden">遊光 Studio</span>
+          <span className="text-[8vw] sm:hidden">Zhou You</span>
           <span className="hidden sm:inline text-[5vw] md:text-[4vw]">Studio</span>
         </motion.p>
 
@@ -128,3 +128,4 @@ export default function Hero() {
     </section>
   );
 }
+
