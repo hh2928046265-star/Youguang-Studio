@@ -5,20 +5,7 @@ import { useContent } from "@/lib/content-context";
 import { useImageUrl } from "@/lib/use-file-url";
 
 // 默认展示图片 — 使用 motionsites 的免费 GIF，有真实内容时会被覆盖
-const DEFAULT_IMAGES = [
-  "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif",
-  "https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif",
-  "https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif",
-  "https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif",
-  "https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif",
-  "https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif",
-  "https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif",
-  "https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif",
-  "https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif",
-  "https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif",
-  "https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif",
-  "https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif",
-];
+const DEFAULT_IMAGES: string[] = [];
 
 function MarqueeRow({ images, speed = 0.3, direction = 1 }: { images: string[]; speed?: number; direction?: number }) {
   const ref = useRef<HTMLDivElement>(null);
