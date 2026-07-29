@@ -1,4 +1,5 @@
-﻿import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
+﻿"use client";
+import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
 import { useEffect, useRef } from "react";
 
 const vertexShader = `
@@ -292,3 +293,4 @@ export default function Galaxy({
 
   return <div ref={ctnDom} className={"galaxy-container " + className} />;
 }
+
