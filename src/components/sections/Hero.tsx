@@ -1,10 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useContent } from "@/lib/content-context";
 import { useVideoUrl, useImageUrl } from "@/lib/use-file-url";
-import { motion } from "framer-motion";
 import CountUp from "@/components/effects/CountUp";
-import SplitText from "@/components/effects/SplitText";
 
 export default function Hero() {
   const { content } = useContent();
@@ -12,7 +11,6 @@ export default function Hero() {
   const heroImage = useImageUrl(heroBgRaw);
   const heroVideoUrl = useVideoUrl(heroVideo || "");
 
-  // 检测是否为真实视频 URL（非 IndexedDB id）
   const hasVideo = heroVideoUrl && heroVideoUrl.startsWith("data:") === false;
 
   return (
@@ -21,94 +19,115 @@ export default function Hero() {
       {hasVideo ? (
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
+          autoPlay loop muted playsInline
           src={heroVideoUrl}
         />
       ) : heroImage ? (
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${heroImage}')` }}
+          className="absolute inset-0 bg-cover bg-center scale-105"
+          style={{ backgroundImage: "url('" + heroImage + "')" }}
         />
       ) : (
         <div className="absolute inset-0 bg-black" />
       )}
 
-      {/* 暗色叠加 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-[1]" />
+      {/* 暗色叠加层 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-black/85 z-[1]" />
 
-      {/* 金色粒子纹理 */}
-      <div
-        className="absolute inset-0 z-[2] opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 30% 40%, #B99A5B 1px, transparent 1px), radial-gradient(circle at 70% 60%, #D4B978 1px, transparent 1px)",
-          backgroundSize: "80px 80px, 120px 120px",
-        }}
-      />
+      {/* 三层巨大错位标题 */}
+      <div className="relative z-10 h-full w-full">
+        {/* 第一行 - 左上 */}
+        <motion.h1
+          className="hero-title absolute text-gold font-serif font-light text-[18vw] md:text-[16vw] leading-[0.85] left-6 md:left-12 top-[16%]"
+          style={{ letterSpacing: "-0.04em", lineHeight: 0.95 }}
+          initial={{ opacity: 0, x: -60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          游光
+        </motion.h1>
 
-      {/* 文字内容 */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
-        <motion.div
+        {/* 第二行 - 右中 */}
+        <motion.h1
+          className="hero-title absolute text-ink font-serif font-light text-[18vw] md:text-[16vw] leading-[0.85] right-6 md:right-12 top-[35%]"
+          style={{ letterSpacing: "-0.04em", lineHeight: 0.95 }}
+          initial={{ opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          Studio
+        </motion.h1>
+
+        {/* 第三行 - 中下 */}
+        <motion.h1
+          className="hero-title absolute text-gold font-serif font-light text-[18vw] md:text-[16vw] leading-[0.85] left-[20%] md:left-[30%] top-[55%]"
+          style={{ letterSpacing: "-0.04em", lineHeight: 0.95 }}
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          创造
+        </motion.h1>
+
+        {/* 描叙文字 */}
+        <motion.p
+          className="absolute left-6 md:left-12 top-[44%] max-w-[260px] text-[15px] leading-snug text-stone font-light"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
         >
-          <motion.h1
-            className="font-serif text-7xl sm:text-8xl md:text-[10rem] lg:text-[12rem] tracking-tight leading-[0.85] mb-4 gold-shimmer"
-            style={{ fontWeight: 300 }}
-            initial={{ y: 60, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <SplitText text={siteConfig.name} className="inline" delay={0.2} />
-          </motion.h1>
+          {siteConfig.tagline}，用视觉语言重塑AI时代的创作者身份
+        </motion.p>
+
+        {/* 右上统计 */}
+        <motion.div
+          className="absolute right-6 md:right-24 top-[16%]"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+        >
+          <div className="flex items-center gap-3 justify-end">
+            <div className="hidden md:block h-px w-24 bg-gold/40 rotate-[20deg]" />
+            <CountUp target={5} suffix="路" className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight" />
+          </div>
+          <p className="text-xs md:text-sm text-stone-light mt-1 text-right tracking-wider">五维创造体系</p>
         </motion.div>
 
-        <motion.p
-          className="text-sm md:text-base text-stone font-light tracking-[0.3em] uppercase mb-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-        >
-          {siteConfig.fullName}
-        </motion.p>
-
-        <motion.p
-          className="text-xs md:text-sm text-stone-light font-light tracking-[0.2em]"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
-        >
-          {siteConfig.tagline}
-        </motion.p>
-
-        {/* 统计数字 */}
+        {/* 左下统计 */}
         <motion.div
-          className="absolute bottom-24 left-8 md:left-16 flex gap-12 md:gap-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="absolute left-6 md:left-20 bottom-20 md:bottom-24"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.6 }}
         >
-          <div>
-            <CountUp target={5} suffix="路" className="text-3xl md:text-4xl font-serif text-gold tracking-tight" />
-            <p className="text-xs text-stone-light mt-1 tracking-wider">创造维度</p>
+          <div className="flex items-center gap-3">
+            <CountUp target={5} className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight" />
+            <div className="hidden md:block h-px w-24 bg-gold/40 rotate-[-20deg]" />
           </div>
-          <div>
-            <CountUp target={2026} className="text-3xl md:text-4xl font-serif text-gold tracking-tight" />
-            <p className="text-xs text-stone-light mt-1 tracking-wider">起航之年</p>
-          </div>
+          <p className="text-xs md:text-sm text-stone-light mt-1 tracking-wider">视觉创作项目</p>
         </motion.div>
 
-        {/* 底部滚动提示 */}
+        {/* 右下统计 */}
+        <motion.div
+          className="absolute right-6 md:right-20 bottom-16 md:bottom-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.8 }}
+        >
+          <div className="flex items-center gap-3 justify-end">
+            <div className="hidden md:block h-px w-24 bg-gold/40 rotate-[-20deg]" />
+            <CountUp target={2026} className="text-4xl md:text-5xl font-serif text-ink font-light tracking-tight" />
+          </div>
+          <p className="text-xs md:text-sm text-stone-light mt-1 text-right tracking-wider">起航之年</p>
+        </motion.div>
+
+        {/* 底部滚动 */}
         <motion.a
           href="#about"
-          className="absolute bottom-10 flex items-center gap-3 text-gold/60 hover:text-gold transition-colors duration-500 group"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 text-gold/60 hover:text-gold transition-colors duration-500 group"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 2.0 }}
+          transition={{ duration: 0.8, delay: 2.2 }}
         >
           <span className="text-sm font-light tracking-[0.2em]">Explore Works</span>
           <motion.span
