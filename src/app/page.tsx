@@ -1,7 +1,19 @@
-import { Navigation, Footer } from "@/components/layout";
-import { LightSweep, VignetteOverlay, ParallaxWrapper, LineDraw, CenterProximity } from "@/components/ui";
+﻿import { Navigation, Footer } from "@/components/layout";
+import {
+  LightSweep,
+  VignetteOverlay,
+  ParallaxWrapper,
+  LineDraw,
+  CenterProximity,
+  SplashScreen,
+  ClickRipple,
+  Cursor,
+} from "@/components/ui";
 import Marquee from "@/components/effects/Marquee";
 import GoldParticles from "@/components/effects/GoldParticles";
+import CursorGlow from "@/components/effects/CursorGlow";
+import GrainOverlay from "@/components/effects/GrainOverlay";
+import ScrollProgress from "@/components/effects/ScrollProgress";
 import {
   Hero,
   About,
@@ -16,9 +28,15 @@ import {
 export default function Home() {
   return (
     <>
+      <SplashScreen />
+      <CursorGlow />
+      <GrainOverlay />
       <GoldParticles />
+      <ClickRipple />
+      <ScrollProgress />
       <LightSweep />
       <VignetteOverlay />
+      <Cursor />
       <Navigation />
       <main>
         <Hero />
@@ -28,7 +46,7 @@ export default function Home() {
         <LineDraw />
         <ParallaxWrapper><Philosophy /></ParallaxWrapper>
         <LineDraw />
-        <ParallaxWrapper><FiveDimensions /></ParallaxWrapper>
+        <CenterProximity><FiveDimensions /></CenterProximity>
         <LineDraw />
         <ProjectDetail />
         <LineDraw />

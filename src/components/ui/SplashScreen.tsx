@@ -15,22 +15,32 @@ export default function SplashScreen() {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="fixed inset-0 z-[9999] bg-ivory flex items-center justify-center"
+          className="fixed inset-0 z-[99999] bg-[#0A0A0A] flex items-center justify-center"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
         >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-center"
           >
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ink tracking-wider mb-3">
+            <motion.h1
+              className="font-serif text-5xl md:text-6xl lg:text-7xl tracking-wider mb-4 gold-shimmer"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            >
               游光 Studio
-            </h1>
-            <p className="text-stone text-sm tracking-[0.3em] uppercase">
+            </motion.h1>
+            <motion.p
+              className="text-stone text-sm tracking-[0.3em] uppercase"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
               Zhou You Visual Creation
-            </p>
+            </motion.p>
           </motion.div>
         </motion.div>
       )}
