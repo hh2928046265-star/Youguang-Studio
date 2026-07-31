@@ -25,10 +25,14 @@ export default function Hero() {
         />
       ) : (
         <Parallax3D speed={0.03}>
-          <div
-            className="absolute inset-0 bg-cover bg-center scale-110"
-            style={heroImage ? { backgroundImage: "url('" + heroImage + "')" } : {}}
-          />
+          {heroImage && (
+            <img
+              src={heroImage}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover scale-110"
+              fetchPriority="high"
+            />
+          )}
         </Parallax3D>
       )}
 
