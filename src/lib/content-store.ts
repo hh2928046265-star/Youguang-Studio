@@ -101,6 +101,7 @@ let publishedPromise: Promise<SiteContent> | null = null;
 function getBasePath(): string {
   if (typeof window === "undefined") return "";
   if (window.location.hostname.includes("vercel.app")) return "";
+  if (window.location.hostname.includes("pages.dev")) return "";
   if (window.location.hostname.includes("github.io")) return "/Youguang-Studio";
   return "";
 }
@@ -131,6 +132,16 @@ export async function loadRemoteContent(basePath: string = ""): Promise<SiteCont
 // ---- 合并加载：远程内容 + localStorage 覆盖 ----
 export async function loadMergedContent(): Promise<SiteContent> {
   const remote = await loadRemoteContent("");
+  // Merge localStorage on top: user edits override published content
+  if (typeof window !== "undefined") {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const local = JSON.parse(raw) as Partial<SiteContent>;
+        return { ...remote, ...local };
+      }
+    } catch {}
+  }
   return remote;
 }
 
