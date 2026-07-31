@@ -1002,6 +1002,32 @@ function SaveButton({ onClick }: { onClick: () => void }) {
 // ============================================================
 // 将 IndexedDB 文件上传到 GitHub 并替换为路径
 // 将 IndexedDB 文件 ID 替换为压缩后的 base64 data URL
+
+// 发布时二次压缩图片：转为 WebP，进一步减小体积
+async function compressForPublish(file: File): Promise<File> {
+  const imgTypes = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+  if (!imgTypes.includes(file.type) && !file.type.startsWith("image/")) return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const MAX = 800; // 发布版限制 800px 宽
+    let w = bitmap.width, h = bitmap.height;
+    if (w > MAX) {
+      h = Math.round(h * (MAX / w));
+      w = MAX;
+    }
+    const canvas = new OffscreenCanvas(w, h);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) { bitmap.close(); return file; }
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    bitmap.close();
+    // WebP Q=0.6：体积约为原 JPEG 的 40-50%
+    const blob = await canvas.convertToBlob({ type: "image/webp", quality: 0.6 });
+    return new File([blob], file.name, { type: "image/webp" });
+  } catch {
+    return file;
+  }
+}
+
 async function embedFilesInContent(obj: any, _token: string): Promise<void> {
   const fileIdPattern = /^[a-f0-9-]{36}_/;
   const converted = new Map<string, string>();
@@ -1011,11 +1037,13 @@ async function embedFilesInContent(obj: any, _token: string): Promise<void> {
     try {
       const file = await getFile(val);
       if (file) {
+        // 发布时二次压缩：转 WebP，限 800px
+        const compressed = await compressForPublish(file);
         const dataUrl = await new Promise<string>((resolve) => {
           const reader = new FileReader();
           reader.onload = () => resolve(reader.result as string);
           reader.onerror = () => resolve(val);
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(compressed);
         });
         converted.set(val, dataUrl);
         return dataUrl;
