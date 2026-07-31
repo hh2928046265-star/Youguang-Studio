@@ -48,6 +48,11 @@ export default function RootLayout({
   const fontClass = inter.variable + " " + cormorantGaramond.variable + " " + notoSerifSC.variable;
   return (
     <html lang="zh-CN">
+      <head>
+        <link rel="preload" href="/hero-bg.jpg" as="image" fetchPriority="high" />
+        <link rel="preload" href="/content.json" as="fetch" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//youguang-studio.pages.dev" />
+        </head>
       <body className={fontClass + " min-h-screen bg-ivory text-ink antialiased"}>
         <Providers>
           <LenisScroll>
