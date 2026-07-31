@@ -122,7 +122,7 @@ export async function loadRemoteContent(basePath: string = ""): Promise<SiteCont
 
 // ---- 合并加载：远程内容 + localStorage 覆盖 ----
 export async function loadMergedContent(): Promise<SiteContent> {
-  const remote = await loadRemoteContent("/Youguang-Studio");
+  const remote = await loadRemoteContent("");
   return remote;
 }
 

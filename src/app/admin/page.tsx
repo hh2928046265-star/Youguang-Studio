@@ -1082,7 +1082,7 @@ function PublishPanel({ onClose }: { onClose: () => void }) {
       let sha = "";
       try {
         const getRes = await fetch(
-          "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/out/content.json",
+          "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/public/content.json",
           { headers: { Authorization: "Bearer " + token.trim(), Accept: "application/vnd.github+json" } }
         );
         if (getRes.ok) {
@@ -1095,7 +1095,7 @@ function PublishPanel({ onClose }: { onClose: () => void }) {
       if (sha) body["sha"] = sha;
 
       const putRes = await fetch(
-        "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/out/content.json",
+        "https://api.github.com/repos/hh2928046265-star/Youguang-Studio/contents/public/content.json",
         {
           method: "PUT",
           headers: { Authorization: "Bearer " + token.trim(), Accept: "application/vnd.github+json", "Content-Type": "application/json" },
