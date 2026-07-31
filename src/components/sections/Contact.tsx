@@ -46,10 +46,10 @@ export default function Contact() {
         <ScrollReveal delay={0.6}>
           <div className="mt-20 text-center">
             <a
-              href="mailto:hello@youguang.studio"
+              href="mailto:13336748279@163.com"
               className="inline-flex items-center gap-3 text-stone hover:text-ink transition-colors duration-500 group"
             >
-              <span className="text-lg font-serif italic">hello@youguang.studio</span>
+              <span className="text-lg font-serif italic">13336748279@163.com</span>
               <span className="text-gold group-hover:translate-x-1 transition-transform duration-300">→</span>
             </a>
           </div>
