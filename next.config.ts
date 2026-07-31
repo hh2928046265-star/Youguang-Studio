@@ -1,8 +1,10 @@
-﻿import type { NextConfig } from "next";
+import type { NextConfig } from "next";
+
+const isCloudflare = process.env.CLOUDFLARE_BUILD === "true";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/Youguang-Studio",
+  basePath: isCloudflare ? "" : "/Youguang-Studio",
   images: {
     unoptimized: true,
   },
