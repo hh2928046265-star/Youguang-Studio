@@ -2,20 +2,26 @@
 const path = require('path');
 
 const outDir = path.join(__dirname, '..', 'out');
-
-// Dynamic basePath: empty for Cloudflare, /Youguang-Studio for GitHub Pages
 const basePath = process.env.CLOUDFLARE_BUILD === 'true' ? '' : '/Youguang-Studio';
 
 function injectIntoHtml(filePath) {
   let html = fs.readFileSync(filePath, 'utf8');
-  
-  const preloadLinks = [
-    `<link rel="preload" href="${basePath}/hero-bg.jpg" as="image" fetchpriority="high">`,
-    `<link rel="preload" href="${basePath}/content.json" as="fetch" crossorigin="anonymous">`,
+  let changed = false;
+
+  const links = [
+    { href: `${basePath}/hero-bg.jpg`, as: 'image', fetchpriority: 'high', check: 'hero-bg.jpg' },
+    { href: `${basePath}/content.json`, as: 'fetch', crossorigin: 'anonymous', check: 'content.json' },
   ];
-  
-  if (!html.includes('hero-bg.jpg')) {
-    html = html.replace('<head>', '<head>\n' + preloadLinks.join('\n'));
+
+  for (const link of links) {
+    if (!html.includes(link.check)) {
+      const tag = `<link rel="preload" href="${link.href}" as="${link.as}"${link.fetchpriority ? ' fetchpriority="'+link.fetchpriority+'"' : ''}${link.crossorigin ? ' crossorigin="'+link.crossorigin+'"' : ''}>`;
+      html = html.replace('<head>', '<head>\n' + tag);
+      changed = true;
+    }
+  }
+
+  if (changed) {
     fs.writeFileSync(filePath, html);
     console.log('Injected preload into:', path.basename(filePath));
   }
