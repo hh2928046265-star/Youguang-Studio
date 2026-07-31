@@ -98,12 +98,20 @@ export function loadContent(): SiteContent {
 let publishedCache: SiteContent | null = null;
 let publishedPromise: Promise<SiteContent> | null = null;
 
+function getBasePath(): string {
+  if (typeof window === "undefined") return "";
+  if (window.location.hostname.includes("vercel.app")) return "";
+  if (window.location.hostname.includes("github.io")) return "/Youguang-Studio";
+  return "";
+}
+
 export async function loadRemoteContent(basePath: string = ""): Promise<SiteContent> {
   if (typeof window === "undefined") return getDefaultContent();
   if (publishedCache) return publishedCache;
   if (publishedPromise) return publishedPromise;
 
-  publishedPromise = fetch(basePath + "/content.json?v=" + Date.now())
+  var actualPath = basePath || getBasePath();
+  publishedPromise = fetch(actualPath + "/content.json?v=" + Date.now())
     .then(res => {
       if (!res.ok) throw new Error("no remote content");
       return res.json();
